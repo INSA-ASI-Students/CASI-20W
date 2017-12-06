@@ -1,21 +1,28 @@
 <template>
-  <h1>{{ msg }}</h1>
+  <div class="app bg-dark">
+    <navbar v-bind:title="title" />
+  </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue';
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to the project 20W'
+      title: 'Project 20W'
     }
+  },
+  components: {
+    Navbar,
   }
 }
 </script>
 
-<style lang="scss">
-  $color: red;
-  h1 {
-    color: $color;
-  }
+<style lang="scss" scoped>
+ .app {
+   height: 100%;
+   width: 100%;
+ }
 </style>

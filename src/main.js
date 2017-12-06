@@ -1,5 +1,7 @@
 /* eslint no-new:"off" */
 
+import 'spectre.css';
+
 import Vue from 'vue';
 import App from './App.vue';
 
