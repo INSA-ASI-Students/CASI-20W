@@ -1,14 +1,12 @@
 <template>
   <div class="task card">
     <div class="card-header">
-      <div class="card-title h5">Microsoft</div>
-      <div class="card-subtitle text-gray">Software and hardware</div>
+      <div class="card-title h5">{{title}}</div>
+      <div class="card-subtitle text-gray">{{information}}</div>
     </div>
-    <div class="card-body">
-      Empower every person and every organization on the planet to achieve more.
-    </div>
+    <div class="card-body">{{description}}</div>
     <div class="card-footer">
-      <button class="btn btn-primary">Do</button>
+      <button class="btn btn-primary">Done</button>
     </div>
   </div>
 </template>
@@ -16,9 +14,14 @@
 <script>
 export default {
   name: 'task',
-  data () {
+  data() {
     return {}
   },
+  props: [
+    'title',
+    'information',
+    'description',
+  ]
 }
 </script>
 

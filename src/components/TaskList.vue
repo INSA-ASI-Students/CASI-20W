@@ -1,10 +1,18 @@
 <template>
   <div class="task-list bg-gray col-3">
     <div class="task-list-header">
-      <h4 class="text-primary">title</h4>
+      <h4 class="text-primary">{{title}}</h4>
       <button type="button" class="btn btn-primary btn-action circle">
         <i class="icon icon-plus"></i>
       </button>
+    </div>
+
+    <div class="task-list-content">
+      <!-- <task
+        v-bind:title="taskList[0].title"
+        v-bind:description="taskList[0].description"
+        v-bind:information="taskList[0].information"
+      /> -->
     </div>
   </div>
 </template>
@@ -19,7 +27,11 @@ export default {
   },
   components: {
     Task,
-  }
+  },
+  props: [
+    'title',
+    'taskList',
+  ]
 }
 </script>
 
