@@ -37,6 +37,8 @@ export default {
 
 <style lang="scss">
   .task-list {
+    flex-grow: 0;
+    flex-shrink: 0;
     padding: .5rem;
 
     .task-list-header {

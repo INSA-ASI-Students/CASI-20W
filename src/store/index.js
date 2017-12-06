@@ -8,16 +8,16 @@ import TaskList from './objects/TaskList';
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
-    column: [],
+    taskListGroup: [],
     user: [],
   },
   mutations: {
-    createTaskList(state) {
-      const taskList = new TaskList(state.title);
-      state.column.push(taskList);
+    createTaskList(state, obj) {
+      const taskList = new TaskList(obj.title);
+      state.taskListGroup.push(taskList);
     },
-    createUser(state) {
-      const user = new User(state.name);
+    createUser(state, obj) {
+      const user = new User(obj.name);
       state.column.push(user);
     },
   },

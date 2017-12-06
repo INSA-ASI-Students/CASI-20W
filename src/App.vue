@@ -2,9 +2,7 @@
   <div class="app bg-dark">
     <navbar v-bind:title="title" />
     <div class="task-list-group">
-      <task-list />
-      <task-list />
-      {{taskList}}
+      <task-list v-bind:title="taskList.title" v-for="taskList in taskListGroup" />
     </div>
   </div>
 </template>
@@ -23,8 +21,8 @@ export default {
     }
   },
   computed: {
-    taskList() {
-      return store.state.taskList;
+    taskListGroup() {
+      return store.state.taskListGroup;
     }
   },
   components: {
@@ -42,9 +40,11 @@ export default {
    flex-direction: column;
 
    .task-list-group {
-     padding: 1rem;
      display: flex;
+     overflow-x: auto;
      flex: 1;
+     padding: 1rem;
+     margin-right: 1rem;
    }
  }
 </style>
