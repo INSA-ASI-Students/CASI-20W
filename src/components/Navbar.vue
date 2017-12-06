@@ -4,6 +4,7 @@
       <a href="#" class="navbar-brand text-light">{{ title }}</a>
     </section>
     <section class="navbar-section">
+      <button type="button" class="btn btn-primary">Add a list</button>
     </section>
   </header>
 </template>
