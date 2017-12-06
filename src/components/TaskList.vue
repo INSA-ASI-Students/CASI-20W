@@ -1,7 +1,7 @@
 <template>
   <div class="task-list bg-gray col-3">
     <div class="task-list-header">
-      <h4 class="text-primary">{{title}}</h4>
+      <h4 class="text-primary">{{self.title}}</h4>
       <button type="button" class="btn btn-primary btn-action circle" v-on:click="displayNewTask">
         <i class="icon icon-plus"></i>
       </button>
@@ -11,12 +11,14 @@
       v-if="newTaskIsDisplayed"
       v-bind:title="'Add a task'"
       v-bind:dismiss="dismissNewTask"
-      v-bind:taskListId="id"
+      v-bind:taskListId="self.id"
     />
 
     <div class="task-list-content">
       <task
         v-for="task in taskList"
+        v-bind:self="task"
+        v-bind:key="'task'+task.id"
       />
     </div>
   </div>
@@ -45,7 +47,7 @@ export default {
   },
   computed: {
     taskList() {
-      return store.state.taskList;
+      return this.$store.state.taskList.filter(task => task.taskListId === this.self.id);
     }
   },
   components: {
@@ -53,8 +55,7 @@ export default {
     NewTask,
   },
   props: [
-    'id',
-    'title',
+    'self',
   ]
 }
 </script>

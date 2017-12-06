@@ -4,8 +4,7 @@
     <div class="task-list-group">
       <task-list
         v-for="taskList in taskListGroup"
-        v-bind:title="taskList.title"
-        v-bind:id="taskList.id"
+        v-bind:self="taskList"
         v-bind:key="'taskList'+taskList.id"
       />
     </div>
@@ -27,7 +26,8 @@ export default {
   },
   computed: {
     taskListGroup() {
-      return store.state.taskListGroup;
+      console.log(this.$store.state.taskListGroup);
+      return this.$store.state.taskListGroup;
     }
   },
   components: {

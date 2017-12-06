@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     createTask() {
-      store.commit('createTask', {
+      this.$store.commit('createTask', {
         title: this.taskTitle,
         description: this.taskDescription,
         taskListId: this.taskListId,
