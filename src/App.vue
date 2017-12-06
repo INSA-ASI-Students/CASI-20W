@@ -2,7 +2,11 @@
   <div class="app bg-dark">
     <navbar v-bind:title="title" />
     <div class="task-list-group">
-      <task-list v-bind:title="taskList.title" v-for="taskList in taskListGroup" />
+      <task-list
+        v-for="taskList in taskListGroup"
+        v-bind:title="taskList.title"
+        v-bind:key="'taskList'+taskList.id"
+      />
     </div>
   </div>
 </template>

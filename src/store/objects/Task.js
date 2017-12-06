@@ -1,8 +1,9 @@
 class Task {
-  constructor(id, title, description) {
+  constructor(id, title, description, taskListId) {
     this.id = id;
     this.title = title;
     this.description = description;
+    this.taskListId = taskListId;
   }
 
   getInformation() {

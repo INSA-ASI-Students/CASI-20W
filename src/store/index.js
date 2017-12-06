@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   mutations: {
     createTask(state, obj) {
       this.state.taskCount = state.taskCount + 1;
-      const task = new Task(this.state.taskCount, obj.obj.title, obj.description);
+      const task = new Task(this.state.taskCount, obj.obj.title, obj.description, obj.taskListId);
       this.state.taskList.push(task);
     },
     createTaskList(state, obj) {

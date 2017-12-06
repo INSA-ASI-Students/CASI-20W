@@ -1,7 +1,7 @@
 <template>
   <header class="navbar">
     <section class="navbar-section">
-      <a href="#" class="navbar-brand text-light">{{ title }}</a>
+      <a href="#" class="navbar-brand text-light">{{title}}</a>
     </section>
     <section class="navbar-section">
       <button type="button" class="btn btn-primary" v-on:click="createList">Add a list</button>
