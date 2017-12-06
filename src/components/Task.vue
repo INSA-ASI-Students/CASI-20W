@@ -1,5 +1,5 @@
 <template>
-  <div class="task card">
+  <div class="card">
     <div class="card-header">
       <div class="card-title h5 text-gray">{{self.title}}</div>
       <div class="card-subtitle text-gray">{{self.information}}</div>

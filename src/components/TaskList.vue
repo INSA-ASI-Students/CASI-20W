@@ -12,6 +12,7 @@
       v-bind:title="'Add a task'"
       v-bind:dismiss="dismissNewTask"
       v-bind:taskListId="self.id"
+      class="task"
     />
 
     <div class="task-list-content">
@@ -19,6 +20,7 @@
         v-for="task in taskList"
         v-bind:self="task"
         v-bind:key="'task'+task.id"
+        class="task"
       />
     </div>
   </div>
@@ -70,6 +72,10 @@ export default {
     .task-list-header {
       display: flex;
       justify-content: space-between;
+    }
+
+    .task {
+      margin-bottom: .5rem;
     }
   }
 
