@@ -4,5 +4,6 @@ module.exports = {
     'plugin:vue/strongly-recommended',
   ],
   rules: {
+    'no-plusplus': "off"
   }
 }
