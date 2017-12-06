@@ -11,14 +11,13 @@
       v-if="newTaskIsDisplayed"
       v-bind:title="'Add a task'"
       v-bind:dismiss="dismissNewTask"
+      v-bind:taskListId="id"
     />
 
     <div class="task-list-content">
-      <!-- <task
-        v-bind:title="title"
-        v-bind:description="description"
-        v-bind:information="information"
-      /> -->
+      <task
+        v-for="task in taskList"
+      />
     </div>
   </div>
 </template>
@@ -44,13 +43,18 @@ export default {
       this.newTaskIsDisplayed = false;
     },
   },
+  computed: {
+    taskList() {
+      return store.state.taskList;
+    }
+  },
   components: {
     Task,
     NewTask,
   },
   props: [
+    'id',
     'title',
-    'taskList',
   ]
 }
 </script>

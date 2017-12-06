@@ -3,14 +3,14 @@
     <div class="card-header">
       <div class="card-title h5 text-gray">{{title}}</div>
       <div class="card-subtitle text-gray">
-        <input class="form-input" type="text" id="input-example-1" placeholder="title" />
+        <input class="form-input" type="text" placeholder="title" v-model="taskTitle" />
       </div>
     </div>
     <div class="card-body">
-      <textarea class="form-input" type="text" placeholder="description" rows="3" />
+      <textarea class="form-input" type="text" placeholder="description" rows="3" v-model="taskDescription" />
     </div>
     <div class="card-footer">
-      <button class="btn btn-success btn-action circle">
+      <button class="btn btn-success btn-action circle" v-on:click="createTask">
         <i class="icon icon-check"></i>
       </button>
       <button class="btn btn-error btn-action circle" v-on:click="dismiss">
@@ -27,9 +27,22 @@ export default {
   name: 'new-task',
   store,
   data () {
-    return {}
+    return {
+      'taskTitle': '',
+      'taskDescription': '',
+    }
+  },
+  methods: {
+    createTask() {
+      store.commit('createTask', {
+        title: this.taskTitle,
+        description: this.taskDescription,
+        taskListId: this.taskListId,
+      });
+    },
   },
   props: [
+    'taskListId',
     'title',
     'dismiss',
   ]

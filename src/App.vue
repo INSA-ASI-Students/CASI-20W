@@ -5,6 +5,7 @@
       <task-list
         v-for="taskList in taskListGroup"
         v-bind:title="taskList.title"
+        v-bind:id="taskList.id"
         v-bind:key="'taskList'+taskList.id"
       />
     </div>
