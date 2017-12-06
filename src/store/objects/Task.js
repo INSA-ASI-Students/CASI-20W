@@ -1,9 +1,12 @@
 class Task {
-  constructor(title, date, users, description) {
+  constructor(id, title, description) {
+    this.id = id;
     this.title = title;
-    this.date = date;
-    this.users = users;
     this.description = description;
+  }
+
+  getInformation() {
+    return this.id;
   }
 }
 
