@@ -1,7 +1,14 @@
 <template>
   <div class="task-list bg-gray col-3">
-    <div class="task-list-header">
-      <h4 class="text-primary">{{self.title}}</h4>
+    <div class="task-list-header" v-if="isEditTitle">
+      <input class="form-input edit-task-list-group-title" type="text" v-model="taskListTitle" />
+      <button type="button" class="btn btn-primary btn-action circle" v-on:click="updateTitle">
+        <i class="icon icon-check"></i>
+      </button>
+    </div>
+
+    <div class="task-list-header" v-else>
+      <h4 class="text-primary title" v-on:click="editTitle">{{self.title}}</h4>
       <button type="button" class="btn btn-primary btn-action circle" v-on:click="displayNewTask">
         <i class="icon icon-plus"></i>
       </button>
@@ -37,6 +44,8 @@ export default {
   data () {
     return {
       'newTaskIsDisplayed': false,
+      'isEditTitle': true,
+      'taskListTitle': 'New List',
     }
   },
   methods: {
@@ -46,6 +55,20 @@ export default {
     dismissNewTask() {
       this.newTaskIsDisplayed = false;
     },
+    editTitle() {
+      this.isEditTitle = true;
+    },
+    updateTitle() {
+      this.$store.commit('updateTaskListTitle', {
+        id: this.self.id,
+        title: this.taskListTitle,
+      });
+      this.isEditTitle = false;
+    },
+  },
+  mounted() {
+    this.isEditTitle = this.self.title === null;
+    if (!this.isEditTitle) this.taskListTitle = this.self.title;
   },
   computed: {
     taskList() {
@@ -76,6 +99,15 @@ export default {
 
     .task {
       margin-bottom: .5rem;
+    }
+
+    .title:hover {
+      cursor: pointer;
+      opacity: 0.75;
+    }
+
+    .edit-task-list-group-title {
+      margin-right: 1rem;
     }
   }
 

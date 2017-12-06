@@ -1,7 +1,7 @@
 class TaskList {
-  constructor(id, title) {
+  constructor(id) {
     this.id = id;
-    this.title = title;
+    this.title = null;
   }
 }
 

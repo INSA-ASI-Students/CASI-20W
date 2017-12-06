@@ -26,7 +26,6 @@ export default {
   },
   computed: {
     taskListGroup() {
-      console.log(this.$store.state.taskListGroup);
       return this.$store.state.taskListGroup;
     }
   },

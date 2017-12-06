@@ -7,6 +7,7 @@ import Task from './objects/Task';
 
 
 Vue.use(Vuex);
+
 const store = new Vuex.Store({
   state: {
     taskCount: 0,
@@ -14,7 +15,7 @@ const store = new Vuex.Store({
     userCount: 0,
     taskListGroup: [],
     taskList: [],
-    user: [],
+    userList: [],
   },
   mutations: {
     createTask(state, obj) {
@@ -30,7 +31,11 @@ const store = new Vuex.Store({
     createUser(state, obj) {
       this.state.userCount = state.user + 1;
       const user = new User(this.userCount, obj.name);
-      this.state.column.push(user);
+      this.state.userList.push(user);
+    },
+    updateTaskListTitle(state, obj) {
+      const taskList = this.state.taskListGroup.find(pointer => pointer.id === obj.id);
+      if (taskList) taskList.title = obj.title;
     },
   },
 });
