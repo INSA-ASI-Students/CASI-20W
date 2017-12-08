@@ -1,10 +1,11 @@
 <template>
   <div class="toolbar bg-gray">
-    <h1 class="text-primary">Title</h1>
+    <comments-box />
   </div>
 </template>
 
 <script>
+import CommentsBox from './CommentsBox.vue';
 import store from '../store';
 
 export default {
@@ -13,6 +14,9 @@ export default {
   props: [
   ],
   methods: {
+  },
+  components: {
+    CommentsBox,
   }
 }
 </script>
@@ -25,5 +29,6 @@ export default {
     border-left-width: 1px;
     border-left-style: solid;
     padding: .5rem;
+    display: flex;
   }
 </style>
