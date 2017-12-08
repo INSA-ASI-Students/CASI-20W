@@ -21,8 +21,7 @@ export default {
       return this.$store.state.editTask <= 0;
     },
     task() {
-      const taskId = this.$store.state.editTask;
-      return this.$store.state.taskList.find(task => task.id === taskId);
+      return this.$store.state.taskList.find(task => task.isSelected);
     },
   },
   props: [

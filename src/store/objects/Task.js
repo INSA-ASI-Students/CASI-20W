@@ -4,6 +4,7 @@ class Task {
     this.title = title;
     this.description = description;
     this.taskListId = taskListId;
+    this.isSelected = false;
   }
 
   getInformation() {

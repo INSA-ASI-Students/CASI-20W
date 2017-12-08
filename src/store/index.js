@@ -16,7 +16,6 @@ const store = new Vuex.Store({
     taskListGroup: [],
     taskList: [],
     userList: [],
-    editTask: -1, // if negative value, then display commentsBox
   },
   mutations: {
     createTask(state, obj) {
@@ -38,8 +37,10 @@ const store = new Vuex.Store({
       const taskList = this.state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) taskList.title = obj.title;
     },
-    updateEditTask(state, id) {
-      this.state.editTask = id;
+    selectTask(state, id) {
+      const selectedTasks = this.state.taskList.filter(task => task.isSelected);
+      for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
+      this.state.taskList.find(task => task.id === id).isSelected = true;
     },
   },
 });

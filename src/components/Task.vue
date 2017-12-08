@@ -6,7 +6,7 @@
     </div>
     <div class="card-body text-primary">{{self.description}}</div>
     <div class="card-footer">
-      <button class="btn btn-primary" v-on:click="editTask">Edit</button>
+      <button class="btn btn-primary" v-on:click="selectTask">Edit</button>
     </div>
   </div>
 </template>
@@ -21,9 +21,9 @@ export default {
     return {}
   },
   methods: {
-    editTask() {
-      this.$store.commit('updateEditTask', this.self.id);
-    }
+    selectTask() {
+      this.$store.commit('selectTask', this.self.id);
+    },
   },
   props: [
     'self',
