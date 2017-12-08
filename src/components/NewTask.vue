@@ -39,6 +39,7 @@ export default {
         description: this.taskDescription,
         taskListId: this.taskListId,
       });
+      this.dismiss();
     },
   },
   props: [
