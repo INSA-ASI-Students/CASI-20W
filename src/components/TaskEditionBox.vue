@@ -35,9 +35,11 @@ export default {
     this.title = this.self.title;
     this.description = this.self.description;
   },
-  updated() {
-    this.title = this.self.title;
-    this.description = this.self.description;
+  watch: {
+    self: function () {
+      this.title = this.self.title;
+      this.description = this.self.description;
+    }
   },
   methods: {
     saveTask() {
