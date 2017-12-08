@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -36,6 +38,10 @@ const store = new Vuex.Store({
     updateTaskListTitle(state, obj) {
       const taskList = this.state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) taskList.title = obj.title;
+    },
+    unselectTasks(state) {
+      const selectedTasks = this.state.taskList.filter(task => task.isSelected);
+      for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
     },
     selectTask(state, id) {
       const selectedTasks = this.state.taskList.filter(task => task.isSelected);

@@ -12,6 +12,7 @@
       </div>
     </div>
     <button class="btn btn-primary" v-on:click="saveTask">Save</button>
+    <button class="btn btn-error dismiss" v-on:click="dismissTask">Dismiss</button>
   </div>
 </template>
 
@@ -26,8 +27,11 @@ export default {
   ],
   methods: {
     saveTask() {
-      
-    }
+
+    },
+    dismissTask() {
+      this.$store.commit('unselectTasks');
+    },
   }
 }
 </script>
@@ -42,6 +46,10 @@ export default {
 
     .edition-block {
       flex: 1;
+    }
+
+    .dismiss {
+      margin-top: .5rem;
     }
   }
 </style>

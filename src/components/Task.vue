@@ -1,12 +1,16 @@
 <template>
-  <div class="card">
+  <div
+    class="card"
+    v-bind:class="{ isSelected: self.isSelected }"
+    v-on:click="selectTask"
+  >
     <div class="card-header">
       <div class="card-title h5 text-gray">#{{self.id}} - {{self.title}}</div>
       <div class="card-subtitle text-gray">{{self.information}}</div>
     </div>
     <div class="card-body text-primary">{{self.description}}</div>
-    <div class="card-footer">
-      <button class="btn btn-primary" v-on:click="selectTask">Edit</button>
+    <div class="card-footer text-gray">
+      Created on jj-mm-aaaa
     </div>
   </div>
 </template>
@@ -32,4 +36,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '~spectre.css/src/variables';
+
+  .card {
+    cursor: pointer;
+  }
+
+  .isSelected {
+    border-color: $primary-color;
+  }
 </style>
