@@ -1,7 +1,7 @@
 <template>
-  <header class="navbar">
+  <header class="navbar bg-gray">
     <section class="navbar-section">
-      <a href="#" class="navbar-brand text-light">{{title}}</a>
+      <a href="#" class="navbar-brand text-primary">{{title}}</a>
     </section>
     <section class="navbar-section">
       <button type="button" class="btn btn-primary" v-on:click="createList">Add a list</button>
@@ -25,6 +25,13 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
+  @import '~spectre.css/src/variables';
+
+  .navbar {
+    border-bottom-color: $primary-color;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: .5rem;
+  }
 </style>
