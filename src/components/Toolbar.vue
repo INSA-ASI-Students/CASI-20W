@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar bg-gray">
     <comments-box v-if="isCommentsBox" />
-    <task-edition-box v-else />
+    <task-edition-box v-else v-bind:self="task"/>
   </div>
 </template>
 
@@ -14,9 +14,16 @@ export default {
   name: 'toolbar',
   store,
   data() {
-    return {
-      isCommentsBox: true,
-    };
+    return {};
+  },
+  computed: {
+    isCommentsBox() {
+      return this.$store.state.editTask <= 0;
+    },
+    task() {
+      const taskId = this.$store.state.editTask;
+      return this.$store.state.taskList.find(task => task.id === taskId);
+    },
   },
   props: [
   ],

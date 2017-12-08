@@ -1,21 +1,29 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <div class="card-title h5 text-gray">{{self.title}}</div>
+      <div class="card-title h5 text-gray">#{{self.id}} - {{self.title}}</div>
       <div class="card-subtitle text-gray">{{self.information}}</div>
     </div>
     <div class="card-body text-primary">{{self.description}}</div>
     <div class="card-footer">
-      <button class="btn btn-primary">Done</button>
+      <button class="btn btn-primary" v-on:click="editTask">Edit</button>
     </div>
   </div>
 </template>
 
 <script>
+import store from '../store';
+
 export default {
   name: 'task',
+  store,
   data() {
     return {}
+  },
+  methods: {
+    editTask() {
+      this.$store.commit('updateEditTask', this.self.id);
+    }
   },
   props: [
     'self',
