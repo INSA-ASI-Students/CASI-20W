@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     isCommentsBox() {
-      return this.$store.state.editTask <= 0;
+      return !this.task;
     },
     task() {
       return this.$store.state.taskList.find(task => task.isSelected);
