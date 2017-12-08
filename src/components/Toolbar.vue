@@ -1,22 +1,30 @@
 <template>
   <div class="toolbar bg-gray">
-    <comments-box />
+    <comments-box v-if="isCommentsBox" />
+    <task-edition-box v-else />
   </div>
 </template>
 
 <script>
 import CommentsBox from './CommentsBox.vue';
+import TaskEditionBox from './TaskEditionBox.vue';
 import store from '../store';
 
 export default {
   name: 'toolbar',
   store,
+  data() {
+    return {
+      isCommentsBox: true,
+    };
+  },
   props: [
   ],
   methods: {
   },
   components: {
     CommentsBox,
+    TaskEditionBox,
   }
 }
 </script>
