@@ -48,6 +48,12 @@ const store = new Vuex.Store({
       for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
       this.state.taskList.find(task => task.id === id).isSelected = true;
     },
+    saveTask(state, obj) {
+      this.state.taskList.find(task => obj.id === task.id).updateContent(
+        obj.title,
+        obj.description,
+      );
+    },
   },
 });
 

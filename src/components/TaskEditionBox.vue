@@ -4,11 +4,11 @@
     <div class="edition-block">
       <div class="form-group">
         <label class="form-label text-gray" for="edit-task-title">Title</label>
-        <input class="form-input" type="text" id="edit-task-title" v-bind:value="self.title"/>
+        <input class="form-input" type="text" id="edit-task-title" v-model="title"/>
       </div>
       <div class="form-group">
         <label class="form-label text-gray" for="edit-task-description">Description</label>
-        <input class="form-input" type="text" id="edit-task-description" v-bind:value="self.description"/>
+        <textarea class="form-input" type="text" id="edit-task-description" v-model="description" rows="4"/>
       </div>
     </div>
     <button class="btn btn-primary" v-on:click="saveTask">Save</button>
@@ -22,12 +22,30 @@ import store from '../store';
 export default {
   name: 'task-edition-box',
   store,
+  data() {
+    return {
+      title: '',
+      description: '',
+    };
+  },
   props: [
     'self',
   ],
+  mounted() {
+    this.title = this.self.title;
+    this.description = this.self.description;
+  },
+  updated() {
+    this.title = this.self.title;
+    this.description = this.self.description;
+  },
   methods: {
     saveTask() {
-
+      this.$store.commit('saveTask', {
+        id: this.self.id,
+        title: this.title,
+        description: this.description,
+      });
     },
     dismissTask() {
       this.$store.commit('unselectTasks');

@@ -1,5 +1,5 @@
 class Task {
-  constructor(id, title, description, taskListId) {
+  constructor(id = -1, title = '', description = '', taskListId = -1) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -9,6 +9,11 @@ class Task {
 
   getInformation() {
     return this.id;
+  }
+
+  updateContent(title, description) {
+    this.title = title;
+    this.description = description;
   }
 }
 
