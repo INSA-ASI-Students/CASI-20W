@@ -2,21 +2,24 @@
   "name": "casi-20w",
   "description": "implementation of the subject 20W from CASI course",
   "version": "1.0.0",
-  "author": "Thibault Théologien <thibault.theologien@insa-rouen.fr>",
+  "author": "@MacBootglass @orionis132 @Nistof",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "client:dev": "cd client && cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "client:build": "cd client && cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "server:dev": "cd server && node server.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
+    "express": "^4.16.2",
+    "nedb": "^1.8.0",
     "spectre.css": "^0.4.7",
     "vue": "^2.4.4",
-    "vue-material": "^1.0.0-beta-7",
     "vuex": "^3.0.1"
   },
   "browserslist": [
@@ -35,6 +38,7 @@
     "eslint-plugin-vue": "^4.0.0-beta.2",
     "file-loader": "^1.1.4",
     "node-sass": "^4.5.3",
+    "nodemon": "^1.13.0",
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",

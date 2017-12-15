@@ -1,7 +1,10 @@
 {
-  "name": "projetcasi",
+  "name": "casi-20w-server",
+  "description": "implementation of the subject 20W from CASI course (server part)",
   "version": "1.0.0",
-  "description": "projet de casi sur le web temp reel",
+  "author": "@MacBootglass @orionis132 @Nistof",
+  "license": "MIT",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
