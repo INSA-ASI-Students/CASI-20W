@@ -3,10 +3,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import User from './objects/User';
-import TaskList from './objects/TaskList';
-import Task from './objects/Task';
-
+import {
+  User,
+  TaskList,
+  Task,
+} from '../../../shared/index';
 
 Vue.use(Vuex);
 

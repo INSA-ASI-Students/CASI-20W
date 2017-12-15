@@ -68,27 +68,26 @@ app.delete('/task/:id', (req, res) => {
 });
 
 // C'est bugué
-// app.put('/task', (req, res) => {
-//   db.update(
-//     { _id: req.body._id },
-//     {
-//       $set: {
-//         title: req.body.title,
-//         description: req.body.description,
-//         taskListId: req.body.taskListId,
-//       },
-//     },
-//     {},
-//     (err) => {
-//       if (err) res.status(400);
-//       else {
-//         res.status(200);
-//         console.log('Updated');
-//       }
-//     },
-//   );
-// }
-
+app.put('/task', (req, res) => {
+  db.update(
+    { _id: req.body._id },
+    {
+      $set: {
+        title: req.body.title,
+        description: req.body.description,
+        taskListId: req.body.taskListId,
+      },
+    },
+    {},
+    (err) => {
+      if (err) res.status(400);
+      else {
+        res.status(200);
+        console.log('Updated');
+      }
+    },
+  );
+});
 
 // ajout d'une liste de taches
 app.post('/taskList', (req, res) => {
