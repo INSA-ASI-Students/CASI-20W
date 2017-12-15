@@ -1,0 +1,25 @@
+{
+  "name": "projetcasi",
+  "version": "1.0.0",
+  "description": "projet de casi sur le web temp reel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web",
+    "temp",
+    "reel"
+  ],
+  "author": "FM, TT, YZ",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.5"
+  }
+}
