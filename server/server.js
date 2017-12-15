@@ -1,28 +1,26 @@
-var express = require('express');
+/* eslint no-console:"off", no-underscore-dangle:"off" */
+const express = require('express');
+const Datastore = require('nedb');
+const bodyParser = require('body-parser');
 
-var app = express();
-
-var Datastore = require('nedb');
+const app = express();
 //  , db = new Datastore();
-db = {};
-db.tasks = new Datastore("./tasks.db");
+const db = {};
+db.tasks = new Datastore('./tasks.db');
 db.tasks.loadDatabase();
 
-db.taskLists = new Datastore("./taskLists.db");
+db.taskLists = new Datastore('./taskLists.db');
 db.taskLists.loadDatabase();
 
-db.users = new Datastore("./users.db");
+db.users = new Datastore('./users.db');
 db.users.loadDatabase();
 
-var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+  extended: true,
 }));
 
-
-//var Task = require('./objects/Task.js');
-
+// var Task = require('./objects/Task.js');
 // compte le nombre de de taches
 // db.tasks.count({}, function (err, count) {
 //   console.log(count);
@@ -30,146 +28,144 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 // ajout d'une tache
-app.post('/task', function(req, res){
+app.post('/task', (req, res) => {
   console.log(req.body);
-  db.tasks.insert(req.body, function (err, newDoc) {
-   // Callback is optional
-		if(err){
-			res.status(400);
-		}else{
-			res.status(200).send({_id : newDoc._id});
-			console.log('Inserted');
-		}
-    	
-    db.tasks.count({}, function (err, count) {
+  db.tasks.insert(req.body, (err, newDoc) => {
+    // Callback is optional
+    if (err) res.status(400);
+    else {
+      res.status(200).send({ _id: newDoc._id });
+      console.log('Inserted');
+    }
+
+    db.tasks.count({}, (errCount, count) => {
       console.log(count);
     });
   });
 });
 
 // obtention des taches
-app.get('/task', function(req, res){
-  db.tasks.find({}, function (err, docs) {
-		if(err)
-			res.status(400);
-		else{
-			res.setHeader('Content-Type', 'text/json');
-    	res.status(200).send(docs);
-		}
-	});
+app.get('/task', (req, res) => {
+  db.tasks.find({}, (err, docs) => {
+    if (err) res.status(400);
+    else {
+      res.setHeader('Content-Type', 'text/json');
+      res.status(200).send(docs);
+    }
+  });
 });
 
-//suppresion d'une tache
+// suppresion d'une tache
 // /task/:id
-app.delete('/task/:id', function(req, res){
-  db.tasks.remove({_id: req.params.id}, function (err, docs) {
-		if(err)
-			res.status(404);
-		else{
-			res.status(204);
-    	console.log('Removed');
-		}
-	});
+app.delete('/task/:id', (req, res) => {
+  db.tasks.remove({ _id: req.params.id }, (err) => {
+    if (err) res.status(404);
+    else {
+      res.status(204);
+      console.log('Removed');
+    }
+  });
 });
 
-app.put("/task", function(req, res){
-	db.update({ _id: req.body._id }, {$set: {"title": req.body.title, "description": req.body.description, "taskListId" : req.body.taskListId}}, {}, function (err, numReplaced) {
-		if(err){
-			res.status(400);
-		}else{
-			res.status(200);
-			console.log('Updated');
-		}
-	});
-});
+// C'est bugué
+// app.put('/task', (req, res) => {
+//   db.update(
+//     { _id: req.body._id },
+//     {
+//       $set: {
+//         title: req.body.title,
+//         description: req.body.description,
+//         taskListId: req.body.taskListId,
+//       },
+//     },
+//     {},
+//     (err) => {
+//       if (err) res.status(400);
+//       else {
+//         res.status(200);
+//         console.log('Updated');
+//       }
+//     },
+//   );
+// }
 
 
 // ajout d'une liste de taches
-app.post('/taskList', function(req, res){
+app.post('/taskList', (req, res) => {
   console.log(req.body);
-  db.taskLists.insert(req.body, function (err, newDoc) {   // Callback is optional
-    if(err){
-			res.status(400);
-		}else{
-			res.status(200).send({_id : newDoc._id});
-			console.log('Inserted');
-		}
-    db.taskLists.count({}, function (err, count) {
+  db.taskLists.insert(req.body, (err, newDoc) => { // Callback is optional
+    if (err) res.status(400);
+    else {
+      res.status(200).send({ _id: newDoc._id });
+      console.log('Inserted');
+    }
+    db.taskLists.count({}, (errCount, count) => {
       console.log(count);
     });
   });
 });
 
 // obtention des listes de taches
-app.get('/taskList', function(req, res){
-  db.taskLists.find({}, function (err, docs) {
-		if(err)
-			res.status(400);
-		else{
-			res.setHeader('Content-Type', 'text/json');
-    	res.status(200).send(docs);
-		}
-	});
+app.get('/taskList', (req, res) => {
+  db.taskLists.find({}, (err, docs) => {
+    if (err) res.status(400);
+    else {
+      res.setHeader('Content-Type', 'text/json');
+      res.status(200).send(docs);
+    }
+  });
 });
 
 
-//suppresion d'une liste de taches
+// suppresion d'une liste de taches
 // /taskList/:id
-app.delete('/taskList/:id', function(req, res){
-  db.taskLists.remove({_id: req.params.id}, function (err, docs) {
-    if(err)
-			res.status(404);
-		else{
-			res.status(204);
-    	console.log('Removed');
-		}
-	});
+app.delete('/taskList/:id', (req, res) => {
+  db.taskLists.remove({ _id: req.params.id }, (err) => {
+    if (err) res.status(404);
+    else {
+      res.status(204);
+      console.log('Removed');
+    }
+  });
 });
-
 
 
 // ajout d'un user
-app.post('/user', function(req, res){
+app.post('/user', (req, res) => {
   console.log(req.body);
-  db.users.insert(req.body, function (err, newDoc) {   // Callback is optional
-    if(err){
-			res.status(400);
-		}else{
-			res.status(200).send({_id : newDoc._id});
-			console.log('Inserted');
-		}
-    db.users.count({}, function (err, count) {
+  db.users.insert(req.body, (err, newDoc) => { // Callback is optional
+    if (err) res.status(400);
+    else {
+      res.status(200).send({ _id: newDoc._id });
+      console.log('Inserted');
+    }
+    db.users.count({}, (errCount, count) => {
       console.log(count);
     });
   });
 });
 
 // obtention des users
-app.get('/user', function(req, res){
-  db.users.find({}, function (err, docs) {
-		if(err)
-			res.status(400);
-		else{
-			res.setHeader('Content-Type', 'text/json');
-    	res.status(200).send(docs);
-		}
-	});
+app.get('/user', (req, res) => {
+  db.users.find({}, (err, docs) => {
+    if (err) res.status(400);
+    else {
+      res.setHeader('Content-Type', 'text/json');
+      res.status(200).send(docs);
+    }
+  });
 });
 
-//suppresion d'un user
+// suppresion d'un user
 // /user/:id
-app.delete('/user/:id', function(req, res){
-  db.users.remove({_id: req.params.id}, function (err, docs) {
-    if(err)
-			res.status(404);
-		else{
-			res.status(204);
-    	console.log('Removed');
-		}
-	});
+app.delete('/user/:id', (req, res) => {
+  db.users.remove({ _id: req.params.id }, (err) => {
+    if (err) res.status(404);
+    else {
+      res.status(204);
+      console.log('Removed');
+    }
+  });
 });
-
-
-
 
 app.listen(8080);
