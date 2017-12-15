@@ -6,13 +6,13 @@ const bodyParser = require('body-parser');
 const app = express();
 //  , db = new Datastore();
 const db = {};
-db.tasks = new Datastore('./tasks.db');
+db.tasks = new Datastore('./database/tasks.db');
 db.tasks.loadDatabase();
 
-db.taskLists = new Datastore('./taskLists.db');
+db.taskLists = new Datastore('./database/taskLists.db');
 db.taskLists.loadDatabase();
 
-db.users = new Datastore('./users.db');
+db.users = new Datastore('./database/users.db');
 db.users.loadDatabase();
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
