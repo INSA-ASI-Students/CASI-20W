@@ -2,22 +2,51 @@
   <div class="comments-box">
     <h3 class="text-primary">Comments</h3>
     <div class="comment-list">
-
+      <message
+        v-for="(comment, index) in commentList"
+        v-bind:self="comment"
+        v-bind:key="`generalComment${index}`"
+      />
     </div>
-    <input class="form-input" type="text" placeholder="Say something ...">
+    <input
+      class="form-input"
+      type="text"
+      placeholder="Say something ..."
+      v-model="content"
+      v-on:keyup.enter="sendMessage"
+    />
   </div>
 </template>
 
 <script>
 import store from '../store';
+import Message from './Message.vue';
 
 export default {
   name: 'comments-box',
   store,
+  data() {
+    return {
+      content: '',
+    }
+  },
+  computed: {
+    commentList() {
+      console.log(this.$store.state.commentList);
+      return this.$store.state.commentList;
+    }
+  },
   props: [
   ],
   methods: {
-  }
+    sendMessage() {
+      this.$store.commit('addGeneralComment', this.content);
+      this.content = '';
+    }
+  },
+  components: {
+    Message,
+  },
 }
 </script>
 

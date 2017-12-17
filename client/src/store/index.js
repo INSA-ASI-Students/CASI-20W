@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     taskListGroup: [],
     taskList: [],
     userList: [ defaultUser ],
-    comments: [],
+    commentList: [],
   },
   mutations: {
     createTask(state, obj) {
@@ -42,14 +42,12 @@ const store = new Vuex.Store({
       state.userList.push(user);
     },
     addGeneralComment(state, obj) {
-      const user = state.userList.find(user => obj.userId === user.id);
-      const message = new Message(user, obj.content);
-      state.comments.push(message);
+      const message = new Message(state.currentUser, obj);
+      state.commentList.push(message);
     },
     addTaskComment(state, obj) {
-      const user = state.userList.find(user => obj.userId === user.id);
       const task = state.taskList.find(task => obj.taskId === task.id);
-      const message = new Message(user, obj.content);
+      const message = new Message(state.currentUser, obj.content);
       task.addComment(message);
     },
     updateTaskListTitle(state, obj) {
