@@ -99,9 +99,14 @@ export default {
       justify-content: space-between;
       flex-wrap: wrap;
 
+      h4 {
+        margin: 0;
+      }
+
       .task-list-group-title {
         flex: 1;
         margin-right: $space;
+        margin-bottom: 2*$space;
       }
     }
 
