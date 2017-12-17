@@ -32,16 +32,22 @@ export default {
   },
   computed: {
     commentList() {
+      if (this.task) return this.task.commentList;
       return this.$store.state.commentList;
     },
   },
   props: [
+    'task',
   ],
   methods: {
     sendMessage() {
-      this.$store.commit('addGeneralComment', this.content);
+      if (this.task) this.$store.commit('addTaskComment', {
+        taskId: this.task.id,
+        content: this.content,
+      });
+      else this.$store.commit('addGeneralComment', this.content);
       this.content = '';
-    }
+    },
   },
   components: {
     Message,

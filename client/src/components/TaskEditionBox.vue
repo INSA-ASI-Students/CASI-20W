@@ -12,12 +12,14 @@
       </div>
     </div>
     <button class="btn btn-primary" v-on:click="saveTask">Save</button>
-    <button class="btn btn-error dismiss" v-on:click="dismissTask">Dismiss</button>
+    <button class="btn btn-error" v-on:click="dismissTask">Dismiss</button>
+    <comment-box class="comment-box" v-bind:task="self"/>
   </div>
 </template>
 
 <script>
 import store from '../store';
+import CommentBox from './CommentsBox.vue';
 
 export default {
   name: 'task-edition-box',
@@ -36,7 +38,7 @@ export default {
     this.description = this.self.description;
   },
   watch: {
-    self: function () {
+    self: function() {
       this.title = this.self.title;
       this.description = this.self.description;
     }
@@ -52,24 +54,32 @@ export default {
     dismissTask() {
       this.$store.commit('unselectTasks');
     },
-  }
+  },
+  components: {
+    CommentBox,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
   @import '~spectre.css/src/variables';
+  $space: .5rem;
 
   .task-edition-box {
     flex: 1;
     display: flex;
     flex-direction: column;
 
-    .edition-block {
-      flex: 1;
+
+    .btn {
+      margin-top: $space;
     }
 
-    .dismiss {
-      margin-top: .5rem;
+    .comment-box {
+      flex: 1;
+      margin-top: $space;
+      padding-top: $space;
+      border-top: 1px solid $primary-color;
     }
   }
 </style>
