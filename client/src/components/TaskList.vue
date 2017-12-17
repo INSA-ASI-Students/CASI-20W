@@ -1,14 +1,14 @@
 <template>
   <div class="task-list bg-gray col-3">
     <div class="task-list-header" v-if="isEditTitle">
-      <input class="form-input edit-task-list-group-title" type="text" v-model="taskListTitle" />
+      <input class="form-input task-list-group-title" type="text" v-model="taskListTitle" />
       <button type="button" class="btn btn-primary btn-action circle" v-on:click="updateTitle">
         <i class="icon icon-check"></i>
       </button>
     </div>
 
     <div class="task-list-header" v-else>
-      <h4 class="text-primary title" v-on:click="editTitle">{{self.title}}</h4>
+      <h4 class="text-primary title task-list-group-title" v-on:click="editTitle">{{self.title}}</h4>
       <button type="button" class="btn btn-primary btn-action circle" v-on:click="displayNewTask">
         <i class="icon icon-plus"></i>
       </button>
@@ -86,32 +86,36 @@ export default {
 </script>
 
 <style lang="scss">
+  $space: .5rem;
+
   .task-list {
     flex-grow: 0;
     flex-shrink: 0;
-    padding: .5rem;
+    padding: $space;
     overflow-y: auto;
 
     .task-list-header {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+
+      .task-list-group-title {
+        flex: 1;
+        margin-right: $space;
+      }
     }
 
     .task {
-      margin-bottom: .5rem;
+      margin-bottom: $space;
     }
 
     .title:hover {
       cursor: pointer;
       opacity: 0.75;
     }
-
-    .edit-task-list-group-title {
-      margin-right: 1rem;
-    }
   }
 
   .task-list + .task-list {
-    margin-left: 1rem;
+    margin-left: 2*$space;
   }
 </style>
