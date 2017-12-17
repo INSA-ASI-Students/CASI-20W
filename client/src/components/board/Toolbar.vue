@@ -8,7 +8,7 @@
 <script>
 import CommentsBox from './CommentsBox.vue';
 import TaskEditionBox from './TaskEditionBox.vue';
-import store from '../store';
+import store from '../../store';
 
 export default {
   name: 'toolbar',

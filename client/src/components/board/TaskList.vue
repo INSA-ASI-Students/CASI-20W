@@ -36,7 +36,7 @@
 <script>
 import NewTask from './NewTask.vue';
 import Task from './Task.vue';
-import store from '../store';
+import store from '../../store';
 
 export default {
   name: 'task-list',
