@@ -1,7 +1,12 @@
 <template>
   <div class="task-list bg-gray col-3">
     <div class="task-list-header" v-if="isEditTitle">
-      <input class="form-input task-list-group-title" type="text" v-model="taskListTitle" />
+      <input
+        class="form-input task-list-group-title"
+        type="text"
+        v-model="taskListTitle"
+        v-on:keyup.enter="updateTitle"
+      />
       <button type="button" class="btn btn-primary btn-action circle" v-on:click="updateTitle">
         <i class="icon icon-check"></i>
       </button>

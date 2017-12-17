@@ -4,11 +4,23 @@
     <div class="edition-block">
       <div class="form-group">
         <label class="form-label text-gray" for="edit-task-title">Title</label>
-        <input class="form-input" type="text" id="edit-task-title" v-model="title"/>
+        <input
+          class="form-input"
+          type="text"
+          id="edit-task-title"
+          v-model="title"
+          v-on:keyup.enter="saveTask"
+        />
       </div>
       <div class="form-group">
         <label class="form-label text-gray" for="edit-task-description">Description</label>
-        <textarea class="form-input" type="text" id="edit-task-description" v-model="description" rows="4"/>
+        <textarea
+          class="form-input"
+          type="text" id="edit-task-description"
+          v-model="description"
+          v-on:keyup.enter="saveTask"
+          rows="4"
+        />
       </div>
     </div>
     <button class="btn btn-primary" v-on:click="saveTask">Save</button>
@@ -50,6 +62,7 @@ export default {
         title: this.title,
         description: this.description,
       });
+      this.dismissTask();
     },
     dismissTask() {
       this.$store.commit('unselectTasks');
