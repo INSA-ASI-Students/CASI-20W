@@ -1,5 +1,32 @@
+<<template>
+  <div class="app">
+    <board v-if="view === 'board'"></board>
+    <login v-else-if="view=='login'"></login>
+  </div>
+</template>
+
+
 <script>
 import Board from './components/board/Board.vue';
+import Login from './components/login/Login.vue';
 
-export default Board
+export default {
+  name: 'app',
+  data() {
+    return {
+      view: 'board',
+    }
+  },
+  components: {
+    Board,
+    Login,
+  }
+}
 </script>
+
+<style>
+  .app {
+      height: 100%;
+      width: 100%;
+  }
+</style>

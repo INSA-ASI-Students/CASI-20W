@@ -1,5 +1,5 @@
 <template>
-  <div class="app bg-dark">
+  <div class="board bg-dark">
     <navbar v-bind:title="title" />
 
     <div class="page">
@@ -22,7 +22,7 @@ import Toolbar from './Toolbar.vue';
 import store from '../../store';
 
 export default {
-  name: 'app',
+  name: 'board',
   store,
   data () {
     return {
@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
   $taskListWidth: 80%;
 
-  .app {
+  .board {
     height: 100%;
     width: 100%;
     display: flex;
