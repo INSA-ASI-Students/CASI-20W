@@ -1,6 +1,6 @@
 <template>
   <div class="board bg-dark">
-    <navbar v-bind:title="title" />
+    <board-navbar v-bind:title="title" />
 
     <div class="page">
       <div class="task-list-group">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Navbar from './Navbar.vue';
+import BoardNavbar from './Navbar.vue';
 import TaskList from './TaskList.vue';
 import Toolbar from './Toolbar.vue';
 import store from '../../store';
@@ -24,18 +24,16 @@ import store from '../../store';
 export default {
   name: 'board',
   store,
-  data () {
-    return {
-      title: 'Project 20W'
-    }
-  },
+  props: [
+    'title'
+  ],
   computed: {
     taskListGroup() {
       return this.$store.state.taskListGroup;
     }
   },
   components: {
-    Navbar,
+    BoardNavbar,
     TaskList,
     Toolbar,
   }

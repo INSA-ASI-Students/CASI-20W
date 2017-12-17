@@ -1,7 +1,7 @@
 <<template>
   <div class="app">
-    <board v-if="view === 'board'"></board>
-    <login v-else-if="view=='login'"></login>
+    <board v-if="view === 'board'" v-bind:title="title"></board>
+    <login v-else-if="view=='login'" v-bind:title="title"></login>
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   name: 'app',
   data() {
     return {
-      view: 'board',
+      title: 'Project 20W',
+      view: 'login',
     }
   },
   components: {
