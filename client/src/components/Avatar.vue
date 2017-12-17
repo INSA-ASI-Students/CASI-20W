@@ -1,6 +1,6 @@
 <template>
   <figure
-    class="avatar badge bg-secondary"
+    class="avatar badge"
     v-bind:data-initial="initial"
     v-bind:style="style"
   />
@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     initial() {
-      return this.self.name[0];
+      return this.self.name[0].toUpperCase();
     },
     backgroundColor() {
       return this.colorHash.hex(this.self.name);

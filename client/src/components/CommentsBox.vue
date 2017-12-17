@@ -32,9 +32,8 @@ export default {
   },
   computed: {
     commentList() {
-      console.log(this.$store.state.commentList);
       return this.$store.state.commentList;
-    }
+    },
   },
   props: [
   ],

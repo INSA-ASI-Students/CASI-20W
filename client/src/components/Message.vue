@@ -1,12 +1,7 @@
 <template>
-  <div class="tile bg-primary">
-    <div class="tile-icon">
-      <avatar v-bind:self="self.user"/>
-    </div>
-    <div class="tile-content">
-      <p class="tile-title">{{self.user.name}}</p>
-      <p class="tile-subtitle text-gray">{{self.content}}</p>
-    </div>
+  <div class="message bg-secondary" v-bind:class="{isAuthor}">
+    <avatar v-bind:self="self.user" />
+    <div class="content text-primary">{{self.content}}</div>
   </div>
 </template>
 
@@ -20,6 +15,11 @@ export default {
   props: [
     'self',
   ],
+  computed: {
+    isAuthor() {
+      return this.self.user.id === this.$store.state.currentUser.id;
+    },
+  },
   methods: {
   },
   components: {
@@ -28,5 +28,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  $space: .25rem;
 
+  .message {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    padding: $space;
+    margin-bottom: 2*$space;
+
+    .content {
+      flex: 1;
+      padding-right: $space;
+    }
+  }
+
+  .isAuthor {
+    flex-direction: row;
+
+    .content {
+      padding-right: 0;
+      padding-left: $space;
+    }
+  }
 </style>
