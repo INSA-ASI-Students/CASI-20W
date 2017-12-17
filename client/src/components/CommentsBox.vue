@@ -58,6 +58,7 @@ export default {
     flex-direction: column;
 
     .comment-list {
+      overflow-y: auto;
       flex: 1;
     }
   }

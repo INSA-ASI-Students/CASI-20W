@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card"
+    class="card bg-secondary"
     v-bind:class="{ isSelected: self.isSelected }"
     v-on:click="selectTask"
   >
@@ -10,7 +10,7 @@
     </div>
     <div class="card-body text-primary">{{self.description}}</div>
     <div class="card-footer text-gray">
-      Created on jj-mm-aaaa
+      {{self.lastUpdate.toLocaleString()}}
     </div>
   </div>
 </template>
