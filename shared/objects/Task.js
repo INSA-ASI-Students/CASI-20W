@@ -5,6 +5,8 @@ class Task {
     this.description = description;
     this.taskListId = taskListId;
     this.isSelected = false;
+    this.creationDate = new Date();
+    this.lastUpdate = this.creationDate;
   }
 
   getInformation() {
@@ -14,6 +16,7 @@ class Task {
   updateContent(title, description) {
     this.title = title;
     this.description = description;
+    this.lastUpdate = new Date();
   }
 }
 
