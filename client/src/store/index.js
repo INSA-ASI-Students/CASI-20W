@@ -7,50 +7,66 @@ import {
   User,
   TaskList,
   Task,
+  Message,
 } from '../../../shared/index';
 
 Vue.use(Vuex);
 
+const defaultUser = new User(1, 'anonymous');
+
 const store = new Vuex.Store({
   state: {
+    currentUser: defaultUser,
     taskCount: 0,
     taskListCount: 0,
-    userCount: 0,
+    userCount: 1,
     taskListGroup: [],
     taskList: [],
-    userList: [],
+    userList: [ defaultUser ],
+    comments: [],
   },
   mutations: {
     createTask(state, obj) {
-      this.state.taskCount = state.taskCount + 1;
-      const task = new Task(this.state.taskCount, obj.title, obj.description, obj.taskListId);
-      this.state.taskList.push(task);
+      state.taskCount = state.taskCount + 1;
+      const task = new Task(state.taskCount, obj.title, obj.description, obj.taskListId);
+      state.taskList.push(task);
     },
     createTaskList(state, obj) {
-      this.state.taskListCount = state.taskListCount + 1;
-      const taskList = new TaskList(this.state.taskListCount, obj.title);
-      this.state.taskListGroup.push(taskList);
+      state.taskListCount = state.taskListCount + 1;
+      const taskList = new TaskList(state.taskListCount, obj.title);
+      state.taskListGroup.push(taskList);
     },
     createUser(state, obj) {
-      this.state.userCount = state.user + 1;
-      const user = new User(this.userCount, obj.name);
-      this.state.userList.push(user);
+      state.userCount = state.user + 1;
+      const user = new User(state.userCount, obj.name);
+      state.userList.push(user);
+    },
+    addGeneralComment(state, obj) {
+      const user = state.userList.find(user => obj.userId === user.id);
+      const message = new Message(user, obj.content);
+      state.comments.push(message);
+    },
+    addTaskComment(state, obj) {
+      const user = state.userList.find(user => obj.userId === user.id);
+      const task = state.taskList.find(task => obj.taskId === task.id);
+      const message = new Message(user, obj.content);
+      task.addComment(message);
     },
     updateTaskListTitle(state, obj) {
-      const taskList = this.state.taskListGroup.find(pointer => pointer.id === obj.id);
+      const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) taskList.title = obj.title;
     },
     unselectTasks(state) {
-      const selectedTasks = this.state.taskList.filter(task => task.isSelected);
+      const selectedTasks = state.taskList.filter(task => task.isSelected);
       for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
     },
     selectTask(state, id) {
-      const selectedTasks = this.state.taskList.filter(task => task.isSelected);
+      const selectedTasks = state.taskList.filter(task => task.isSelected);
       for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
-      this.state.taskList.find(task => task.id === id).isSelected = true;
+      state.taskList.find(task => task.id === id).isSelected = true;
     },
     saveTask(state, obj) {
-      this.state.taskList.find(task => obj.id === task.id).updateContent(
+      state.taskList.find(task => obj.id === task.id).updateContent(
         obj.title,
         obj.description,
       );

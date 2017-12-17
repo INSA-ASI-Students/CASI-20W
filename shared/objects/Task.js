@@ -7,6 +7,7 @@ class Task {
     this.isSelected = false;
     this.creationDate = new Date();
     this.lastUpdate = this.creationDate;
+    this.comments = [];
   }
 
   getInformation() {
@@ -17,6 +18,10 @@ class Task {
     this.title = title;
     this.description = description;
     this.lastUpdate = new Date();
+  }
+
+  addComment(message) {
+    this.comments.push(message);
   }
 }
 
