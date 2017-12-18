@@ -20,24 +20,25 @@ const store = new Vuex.Store({
     taskCount: 0,
     taskListCount: 0,
     userCount: 1,
-    taskListGroup: [],
     taskList: [],
-    userList: [ defaultUser ],
+    taskListGroup: [],
+    userList: [defaultUser],
     commentList: [],
   },
   mutations: {
     createTask(state, obj) {
-      state.taskCount = state.taskCount + 1;
-      const task = new Task(state.taskCount, obj.title, obj.description, obj.taskListId);
+      this.state.taskCount = state.taskCount + 1;
+      const task = new Task(state.taskCount, obj.title, obj.description);
+      state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
       state.taskList.push(task);
     },
     createTaskList(state, obj) {
-      state.taskListCount = state.taskListCount + 1;
+      this.state.taskListCount = state.taskListCount + 1;
       const taskList = new TaskList(state.taskListCount, obj.title);
       state.taskListGroup.push(taskList);
     },
     createUser(state, obj) {
-      state.userCount = state.user + 1;
+      this.state.userCount = state.user + 1;
       const user = new User(state.userCount, obj.name);
       state.userList.push(user);
     },
@@ -46,13 +47,18 @@ const store = new Vuex.Store({
       state.commentList.push(message);
     },
     addTaskComment(state, obj) {
-      const task = state.taskList.find(task => obj.taskId === task.id);
+      const selectedTask = state.taskList.find(task => obj.taskId === task.id);
       const message = new Message(state.currentUser, obj.content);
-      task.addComment(message);
+      selectedTask.addComment(message);
     },
     updateTaskListTitle(state, obj) {
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) taskList.title = obj.title;
+    },
+    updateTaskPlace(state, obj) {
+      state.taskListGroup
+        .find(taskList => taskList.id === obj.taskListId)
+        .updateTaskList(obj.taskList);
     },
     unselectTasks(state) {
       const selectedTasks = state.taskList.filter(task => task.isSelected);
@@ -61,7 +67,7 @@ const store = new Vuex.Store({
     selectTask(state, id) {
       const selectedTasks = state.taskList.filter(task => task.isSelected);
       for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
-      state.taskList.find(task => task.id === id).isSelected = true;
+      this.state.taskList.find(task => task.id === id).isSelected = true;
     },
     saveTask(state, obj) {
       state.taskList.find(task => obj.id === task.id).updateContent(

@@ -1,9 +1,8 @@
 class Task {
-  constructor(id = -1, title = '', description = '', taskListId = -1) {
+  constructor(id = -1, title = '', description = '') {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.taskListId = taskListId;
     this.isSelected = false;
     this.creationDate = new Date();
     this.lastUpdate = this.creationDate;

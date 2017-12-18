@@ -29,14 +29,13 @@
 
     <draggable
       class="task-list-content"
-      :options="{group:'taskList'}"
-      @start="drag=true"
-      @end="drag=false"
+      v-bind:options="{group:'taskList'}"
+      v-model="taskList"
     >
       <task
         v-for="task in taskList"
         v-bind:self="task"
-        v-bind:key="'task'+task.id"
+        v-bind:key="`task${task.id}`"
         class="task"
       />
     </draggable>
@@ -83,9 +82,17 @@ export default {
     if (!this.isEditTitle) this.taskListTitle = this.self.title;
   },
   computed: {
-    taskList() {
-      return this.$store.state.taskList.filter(task => task.taskListId === this.self.id);
-    }
+    taskList: {
+      get() {
+        return this.self.taskList;
+      },
+      set(state) {
+        this.$store.commit('updateTaskPlace', {
+          taskListId: this.self.id,
+          taskList: state,
+        });
+      },
+    },
   },
   components: {
     Task,
