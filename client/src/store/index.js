@@ -22,7 +22,9 @@ const store = new Vuex.Store({
     userCount: 1,
     taskList: [],
     taskListGroup: [],
-    userList: [defaultUser],
+    userList: [
+      defaultUser,
+    ],
     commentList: [],
   },
   mutations: {
