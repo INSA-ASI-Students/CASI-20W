@@ -24,21 +24,27 @@
       v-bind:title="'Add a task'"
       v-bind:dismiss="dismissNewTask"
       v-bind:taskListId="self.id"
-      class="task"
+      class="new-task"
     />
 
-    <div class="task-list-content">
+    <draggable
+      class="task-list-content"
+      :options="{group:'taskList'}"
+      @start="drag=true"
+      @end="drag=false"
+    >
       <task
         v-for="task in taskList"
         v-bind:self="task"
         v-bind:key="'task'+task.id"
         class="task"
       />
-    </div>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import NewTask from './NewTask.vue';
 import Task from './Task.vue';
 import store from '../store';
@@ -48,6 +54,7 @@ export default {
   store,
   data () {
     return {
+      'dragList': [],
       'newTaskIsDisplayed': false,
       'isEditTitle': true,
       'taskListTitle': 'New List',
@@ -83,6 +90,7 @@ export default {
   components: {
     Task,
     NewTask,
+    draggable,
   },
   props: [
     'self',
@@ -96,8 +104,9 @@ export default {
   .task-list {
     flex-grow: 0;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
     padding: $space;
-    overflow-y: auto;
 
     .task-list-header {
       display: flex;
@@ -115,7 +124,16 @@ export default {
       }
     }
 
-    .task {
+    .task-list-content {
+      overflow-y: auto;
+      flex: 1;
+
+      .task {
+        margin-bottom: $space;
+      }
+    }
+
+    .new-task {
       margin-bottom: $space;
     }
 

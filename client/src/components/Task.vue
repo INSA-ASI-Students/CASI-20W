@@ -31,7 +31,7 @@ export default {
   },
   props: [
     'self',
-  ]
+  ],
 }
 </script>
 

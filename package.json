@@ -21,6 +21,7 @@
     "nedb": "^1.8.0",
     "spectre.css": "^0.4.7",
     "vue": "^2.4.4",
+    "vuedraggable": "^2.15.0",
     "vuex": "^3.0.1"
   },
   "browserslist": [
