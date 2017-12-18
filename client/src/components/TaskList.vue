@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 import NewTask from './NewTask.vue';
 import Task from './Task.vue';
 import store from '../store';

@@ -3,13 +3,17 @@
     <navbar v-bind:title="title" />
 
     <div class="page">
-      <div class="task-list-group">
+      <draggable
+        class="task-list-group"
+        v-bind:options="{group:'taskListGroup'}"
+        v-model="taskListGroup"
+      >
         <task-list
-        v-for="taskList in taskListGroup"
-        v-bind:self="taskList"
-        v-bind:key="'taskList'+taskList.id"
+          v-for="taskList in taskListGroup"
+          v-bind:self="taskList"
+          v-bind:key="`taskList${taskList.id}`"
         />
-      </div>
+      </draggable>
       <toolbar class="toolbar"/>
     </div>
   </div>
@@ -19,6 +23,7 @@
 import Navbar from './components/Navbar.vue';
 import TaskList from './components/TaskList.vue';
 import Toolbar from './components/Toolbar.vue';
+import draggable from 'vuedraggable';
 import store from './store';
 
 export default {
@@ -30,14 +35,20 @@ export default {
     }
   },
   computed: {
-    taskListGroup() {
-      return this.$store.state.taskListGroup;
-    }
+    taskListGroup: {
+      get() {
+        return this.$store.state.taskListGroup;
+      },
+      set(state) {
+        this.$store.commit('updateTaskListPlace', state);
+      },
+    },
   },
   components: {
     Navbar,
     TaskList,
     Toolbar,
+    draggable,
   }
 }
 </script>

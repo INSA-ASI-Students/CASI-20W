@@ -62,6 +62,9 @@ const store = new Vuex.Store({
         .find(taskList => taskList.id === obj.taskListId)
         .updateTaskList(obj.taskList);
     },
+    updateTaskListPlace(state, obj) {
+      this.state.taskListGroup = obj;
+    },
     unselectTasks(state) {
       const selectedTasks = state.taskList.filter(task => task.isSelected);
       for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
