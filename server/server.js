@@ -28,11 +28,11 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 
 // ajout d'une tache
-app.post('/task', (req, res) => {
+app.put('/task', (req, res) => {
   console.log(req.body);
   db.tasks.insert(req.body, (err, newDoc) => {
     // Callback is optional
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.status(200).send({ _id: newDoc._id });
       console.log('Inserted');
@@ -47,7 +47,7 @@ app.post('/task', (req, res) => {
 // obtention des taches
 app.get('/task', (req, res) => {
   db.tasks.find({}, (err, docs) => {
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.setHeader('Content-Type', 'text/json');
       res.status(200).send(docs);
@@ -59,41 +59,41 @@ app.get('/task', (req, res) => {
 // /task/:id
 app.delete('/task/:id', (req, res) => {
   db.tasks.remove({ _id: req.params.id }, (err) => {
-    if (err) res.status(404);
+    if (err) res.sendStatus(404);
     else {
-      res.status(204);
+      res.sendStatus(204);
       console.log('Removed');
     }
   });
 });
 
-// C'est bugué
-app.put('/task', (req, res) => {
-  db.update(
+// Modification d'un tache
+app.post('/task', (req, res) => {
+  db.tasks.update(
     { _id: req.body._id },
     {
       $set: {
-        title: req.body.title,
+        titre: req.body.titre,
         description: req.body.description,
         taskListId: req.body.taskListId,
       },
     },
     {},
     (err) => {
-      if (err) res.status(400);
+      if (err) res.sendStatus(400);
       else {
-        res.status(200);
+        res.sendStatus(200);
         console.log('Updated');
       }
-    },
+    }
   );
 });
 
 // ajout d'une liste de taches
-app.post('/taskList', (req, res) => {
+app.put('/taskList', (req, res) => {
   console.log(req.body);
   db.taskLists.insert(req.body, (err, newDoc) => { // Callback is optional
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.status(200).send({ _id: newDoc._id });
       console.log('Inserted');
@@ -107,7 +107,7 @@ app.post('/taskList', (req, res) => {
 // obtention des listes de taches
 app.get('/taskList', (req, res) => {
   db.taskLists.find({}, (err, docs) => {
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.setHeader('Content-Type', 'text/json');
       res.status(200).send(docs);
@@ -120,9 +120,9 @@ app.get('/taskList', (req, res) => {
 // /taskList/:id
 app.delete('/taskList/:id', (req, res) => {
   db.taskLists.remove({ _id: req.params.id }, (err) => {
-    if (err) res.status(404);
+    if (err) res.sendStatus(404);
     else {
-      res.status(204);
+      res.sendStatus(204);
       console.log('Removed');
     }
   });
@@ -130,10 +130,10 @@ app.delete('/taskList/:id', (req, res) => {
 
 
 // ajout d'un user
-app.post('/user', (req, res) => {
+app.put('/user', (req, res) => {
   console.log(req.body);
   db.users.insert(req.body, (err, newDoc) => { // Callback is optional
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.status(200).send({ _id: newDoc._id });
       console.log('Inserted');
@@ -147,7 +147,7 @@ app.post('/user', (req, res) => {
 // obtention des users
 app.get('/user', (req, res) => {
   db.users.find({}, (err, docs) => {
-    if (err) res.status(400);
+    if (err) res.sendStatus(400);
     else {
       res.setHeader('Content-Type', 'text/json');
       res.status(200).send(docs);
@@ -159,9 +159,9 @@ app.get('/user', (req, res) => {
 // /user/:id
 app.delete('/user/:id', (req, res) => {
   db.users.remove({ _id: req.params.id }, (err) => {
-    if (err) res.status(404);
+    if (err) res.sendStatus(404);
     else {
-      res.status(204);
+      res.sendStatus(204);
       console.log('Removed');
     }
   });
