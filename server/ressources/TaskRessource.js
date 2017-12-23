@@ -1,31 +1,28 @@
-/* eslint no-console:"off", no-underscore-dangle:"off" */
+/* eslint no-underscore-dangle:"off" */
 const Datastore = require('nedb');
 
 const endpoint = '/tasks';
 
-module.exports = (app, dbPath) => {
+module.exports = (app, dbPath, winston) => {
   const database = new Datastore(dbPath);
   database.loadDatabase();
 
   // ajout d'une tache
   app.put(endpoint, (req, res) => {
-    console.log(req.body);
+    winston.log('debug', 'ADD > task', req.body);
     database.insert(req.body, (err, newDoc) => {
       // Callback is optional
       if (err) res.sendStatus(400);
       else {
         res.status(200).send({ _id: newDoc._id });
-        console.log('Inserted');
+        winston.log('debug', 'task created');
       }
-
-      database.count({}, (errCount, count) => {
-        console.log(count);
-      });
     });
   });
 
   // obtention des taches
   app.get(endpoint, (req, res) => {
+    winston.log('debug', 'GET > task list');
     database.find({}, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
@@ -38,17 +35,19 @@ module.exports = (app, dbPath) => {
   // suppresion d'une tache
   // /task/:id
   app.delete(`${endpoint}:id`, (req, res) => {
+    winston.log('debug', 'DEL > task', req.params.id);
     database.remove({ _id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
-        console.log('Removed');
+        winston.log('debug', 'task removed');
       }
     });
   });
 
   // Modification d'un tache
   app.post(endpoint, (req, res) => {
+    winston.log('debug', 'POST > task', req.body);
     database.update(
       { _id: req.body._id },
       {
@@ -63,7 +62,7 @@ module.exports = (app, dbPath) => {
         if (err) res.sendStatus(400);
         else {
           res.sendStatus(200);
-          console.log('Updated');
+          winston.log('debug', 'task updated');
         }
       },
     );

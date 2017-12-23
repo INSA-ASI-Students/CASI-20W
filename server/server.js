@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 }));
 
 taskListRessource(app, './database/taskLists.db', winston);
-taskRessource(app, './database/tasks.db');
+taskRessource(app, './database/tasks.db', winston);
 userRessource(app, './database/users.db', winston);
 
 const server = app.listen(port, host, () => {
