@@ -51,9 +51,9 @@ module.exports = (app, dbPath, winston) => {
       { id: req.body.id },
       {
         $set: {
-          titre: req.body.titre,
+          title: req.body.title,
           description: req.body.description,
-          taskListId: req.body.taskListId,
+          lastUpdate: req.body.lastUpdate,
         },
       },
       {},
