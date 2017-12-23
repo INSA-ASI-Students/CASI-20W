@@ -1,11 +1,16 @@
 /* eslint no-console:"off", no-underscore-dangle:"off" */
-const endpoint = '/task';
+const Datastore = require('nedb');
 
-module.exports = (app, db) => {
+const endpoint = '/tasks';
+
+module.exports = (app) => {
+  const database = new Datastore('./database/tasks.db');
+  database.loadDatabase();
+
   // ajout d'une tache
   app.put(endpoint, (req, res) => {
     console.log(req.body);
-    db.tasks.insert(req.body, (err, newDoc) => {
+    database.insert(req.body, (err, newDoc) => {
       // Callback is optional
       if (err) res.sendStatus(400);
       else {
@@ -13,7 +18,7 @@ module.exports = (app, db) => {
         console.log('Inserted');
       }
 
-      db.tasks.count({}, (errCount, count) => {
+      database.count({}, (errCount, count) => {
         console.log(count);
       });
     });
@@ -21,7 +26,7 @@ module.exports = (app, db) => {
 
   // obtention des taches
   app.get(endpoint, (req, res) => {
-    db.tasks.find({}, (err, docs) => {
+    database.find({}, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
         res.setHeader('Content-Type', 'text/json');
@@ -33,7 +38,7 @@ module.exports = (app, db) => {
   // suppresion d'une tache
   // /task/:id
   app.delete(`${endpoint}:id`, (req, res) => {
-    db.tasks.remove({ _id: req.params.id }, (err) => {
+    database.remove({ _id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
@@ -44,7 +49,7 @@ module.exports = (app, db) => {
 
   // Modification d'un tache
   app.post(endpoint, (req, res) => {
-    db.tasks.update(
+    database.update(
       { _id: req.body._id },
       {
         $set: {

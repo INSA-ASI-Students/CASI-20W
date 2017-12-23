@@ -1,17 +1,22 @@
 /* eslint no-console:"off", no-underscore-dangle:"off" */
-const endpoint = '/user';
+const Datastore = require('nedb');
 
-module.exports = (app, db) => {
+const endpoint = '/users';
+
+module.exports = (app) => {
+  const database = new Datastore('./database/users.db');
+  database.loadDatabase();
+
   // ajout d'un user
   app.put(endpoint, (req, res) => {
     console.log(req.body);
-    db.users.insert(req.body, (err, newDoc) => { // Callback is optional
+    database.insert(req.body, (err, newDoc) => { // Callback is optional
       if (err) res.sendStatus(400);
       else {
         res.status(200).send({ _id: newDoc._id });
         console.log('Inserted');
       }
-      db.users.count({}, (errCount, count) => {
+      database.count({}, (errCount, count) => {
         console.log(count);
       });
     });
@@ -19,7 +24,7 @@ module.exports = (app, db) => {
 
   // obtention des users
   app.get(endpoint, (req, res) => {
-    db.users.find({}, (err, docs) => {
+    database.find({}, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
         res.setHeader('Content-Type', 'text/json');
@@ -31,7 +36,7 @@ module.exports = (app, db) => {
   // suppresion d'un user
   // /user/:id
   app.delete(`${endpoint}:id`, (req, res) => {
-    db.users.remove({ _id: req.params.id }, (err) => {
+    database.remove({ _id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
