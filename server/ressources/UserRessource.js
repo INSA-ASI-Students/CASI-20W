@@ -3,8 +3,8 @@ const Datastore = require('nedb');
 
 const endpoint = '/users';
 
-module.exports = (app) => {
-  const database = new Datastore('./database/users.db');
+module.exports = (app, dbPath) => {
+  const database = new Datastore(dbPath);
   database.loadDatabase();
 
   // ajout d'un user

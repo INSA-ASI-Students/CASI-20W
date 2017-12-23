@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
   extended: true,
 }));
 
-taskListRessource(app);
-taskRessource(app);
-userRessource(app);
+taskListRessource(app, './database/taskLists.db');
+taskRessource(app, './database/tasks.db');
+userRessource(app, './database/users.db');
 
 app.listen(8080);

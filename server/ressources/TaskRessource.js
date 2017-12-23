@@ -3,8 +3,8 @@ const Datastore = require('nedb');
 
 const endpoint = '/tasks';
 
-module.exports = (app) => {
-  const database = new Datastore('./database/tasks.db');
+module.exports = (app, dbPath) => {
+  const database = new Datastore(dbPath);
   database.loadDatabase();
 
   // ajout d'une tache
