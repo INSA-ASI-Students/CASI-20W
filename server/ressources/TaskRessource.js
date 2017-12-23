@@ -11,7 +11,6 @@ module.exports = (app, dbPath, winston) => {
   app.put(endpoint, (req, res) => {
     winston.log('debug', 'ADD > task', req.body);
     database.insert(req.body, (err, newDoc) => {
-      // Callback is optional
       if (err) res.sendStatus(400);
       else {
         res.status(200).send({ _id: newDoc._id });
@@ -36,7 +35,7 @@ module.exports = (app, dbPath, winston) => {
   // /task/:id
   app.delete(`${endpoint}:id`, (req, res) => {
     winston.log('debug', 'DEL > task', req.params.id);
-    database.remove({ _id: req.params.id }, (err) => {
+    database.remove({ id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
@@ -49,7 +48,7 @@ module.exports = (app, dbPath, winston) => {
   app.post(endpoint, (req, res) => {
     winston.log('debug', 'POST > task', req.body);
     database.update(
-      { _id: req.body._id },
+      { id: req.body.id },
       {
         $set: {
           titre: req.body.titre,

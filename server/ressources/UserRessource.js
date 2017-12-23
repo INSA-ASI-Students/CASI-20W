@@ -35,7 +35,7 @@ module.exports = (app, dbPath, winston) => {
   // /user/:id
   app.delete(`${endpoint}:id`, (req, res) => {
     winston.log('debug', 'DEL > user', req.params.id);
-    database.remove({ _id: req.params.id }, (err) => {
+    database.remove({ id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);

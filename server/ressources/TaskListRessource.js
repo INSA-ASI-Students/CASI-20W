@@ -36,7 +36,7 @@ module.exports = (app, dbPath, winston) => {
   // /taskList/:id
   app.delete(`${endpoint}:id`, (req, res) => {
     winston.log('debug', 'DEL > taskList', req.params.id);
-    database.remove({ _id: req.params.id }, (err) => {
+    database.remove({ id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
