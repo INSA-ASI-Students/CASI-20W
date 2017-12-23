@@ -12,12 +12,14 @@ else winston.level = 'debug';
 
 const app = express();
 const host = 'localhost';
-const port = 8080;
+const port = 3000;
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
   extended: true,
 }));
+
+app.use('/', express.static(`${process.cwd()}/../client`));
 
 taskListRessource(app, './database/taskLists.db', winston);
 taskRessource(app, './database/tasks.db', winston);

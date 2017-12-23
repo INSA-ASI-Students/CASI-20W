@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle:"off" */
 const Datastore = require('nedb');
 
-const endpoint = '/tasks';
+const endpoint = '/api/tasks';
 
 module.exports = (app, dbPath, winston) => {
   const database = new Datastore(dbPath);
