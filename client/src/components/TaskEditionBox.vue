@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     saveTask() {
-      this.$store.commit('saveTask', {
+      this.$store.commit('updateTask', {
         id: this.self.id,
         title: this.title,
         description: this.description,

@@ -14,6 +14,9 @@ import {
 Vue.use(Vuex);
 
 const defaultUser = new User(1, 'anonymous');
+const taskEndpoint = '/api/tasks';
+const taskListEndpoint = '/api/taskLists';
+const userEndpoint = '/api/users';
 
 const store = new Vuex.Store({
   state: {
@@ -38,17 +41,17 @@ const store = new Vuex.Store({
       this.state.taskCount = state.taskCount + 1;
       const task = new Task(state.taskCount, obj.title, obj.description);
       state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
-      state.taskList.push(task);
+      Axios.put(taskEndpoint, task).then(res => state.taskList.push(task));
     },
     createTaskList(state, obj) {
       this.state.taskListCount = state.taskListCount + 1;
       const taskList = new TaskList(state.taskListCount, obj.title);
-      state.taskListGroup.push(taskList);
+      Axios.put(taskListEndpoint, taskList).then(res => state.taskListGroup.push(taskList));
     },
     createUser(state, obj) {
       this.state.userCount = state.user + 1;
       const user = new User(state.userCount, obj.name);
-      state.userList.push(user);
+      Axios.put(userEndpoint, user).then(res => state.userList.push(user));
     },
     addGeneralComment(state, obj) {
       const message = new Message(this.getters.currentUser, obj);
@@ -77,11 +80,13 @@ const store = new Vuex.Store({
     selectTask(state, id) {
       this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
     },
-    saveTask(state, obj) {
-      state.taskList.find(task => obj.id === task.id).updateContent(
+    updateTask(state, obj) {
+      const task = state.taskList.find(currentTask => obj.id === currentTask.id);
+      task.updateContent(
         obj.title,
         obj.description,
       );
+      Axios.post(taskEndpoint, task);
     },
   },
 });
