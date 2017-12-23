@@ -16,7 +16,7 @@ const defaultUser = new User(1, 'anonymous');
 
 const store = new Vuex.Store({
   state: {
-    currentUser: defaultUser,
+    currentUserId: defaultUser.id,
     taskCount: 0,
     taskListCount: 0,
     userCount: 1,
@@ -26,6 +26,11 @@ const store = new Vuex.Store({
       defaultUser,
     ],
     commentList: [],
+  },
+  getters: {
+    currentUser(state) {
+      return state.userList.find(user => user.id === state.currentUserId);
+    },
   },
   mutations: {
     createTask(state, obj) {
@@ -45,12 +50,12 @@ const store = new Vuex.Store({
       state.userList.push(user);
     },
     addGeneralComment(state, obj) {
-      const message = new Message(state.currentUser, obj);
+      const message = new Message(this.getters.currentUser, obj);
       state.commentList.push(message);
     },
     addTaskComment(state, obj) {
       const selectedTask = state.taskList.find(task => obj.taskId === task.id);
-      const message = new Message(state.currentUser, obj.content);
+      const message = new Message(this.getters.currentUser, obj.content);
       selectedTask.addComment(message);
     },
     updateTaskListTitle(state, obj) {

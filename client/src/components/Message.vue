@@ -17,7 +17,7 @@ export default {
   ],
   computed: {
     isAuthor() {
-      return this.self.user.id === this.$store.state.currentUser.id;
+      return this.self.user.id === this.$store.getters.currentUser.id;
     },
   },
   methods: {

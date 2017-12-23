@@ -85,7 +85,7 @@ app.post('/task', (req, res) => {
         res.sendStatus(200);
         console.log('Updated');
       }
-    }
+    },
   );
 });
 
