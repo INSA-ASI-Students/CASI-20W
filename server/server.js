@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
   extended: true,
 }));
 
-taskListRessource(app, './database/taskLists.db');
+taskListRessource(app, './database/taskLists.db', winston);
 taskRessource(app, './database/tasks.db');
 userRessource(app, './database/users.db', winston);
 

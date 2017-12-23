@@ -16,7 +16,6 @@ module.exports = (app, dbPath, winston) => {
         res.status(200).send({ _id: newDoc._id });
         winston.log('debug', 'user created');
       }
-      database.count({}, (errCount, count) => winston.log('debug', 'user count', count));
     });
   });
 
