@@ -44,12 +44,15 @@ export default {
       },
     },
   },
+  beforeCreate() {
+    this.$store.dispatch('retrieveData');
+  },
   components: {
     Navbar,
     TaskList,
     Toolbar,
     draggable,
-  }
+  },
 }
 </script>
 

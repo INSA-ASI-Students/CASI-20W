@@ -1,12 +1,12 @@
 class TaskList {
-  constructor(id) {
+  constructor(id = -1, title = null, taskList = []) {
     this.id = id;
-    this.title = null;
-    this.taskList = [];
+    this.title = title;
+    this.taskList = taskList;
   }
 
   addTask(task) {
-    this.taskList.push(task);
+    this.taskList.push(task.id);
   }
 
   updateTaskList(taskList) {

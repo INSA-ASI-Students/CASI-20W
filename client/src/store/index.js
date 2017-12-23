@@ -36,7 +36,42 @@ const store = new Vuex.Store({
       return state.userList.find(user => user.id === state.currentUserId);
     },
   },
+  actions: {
+    retrieveData(context) {
+      context.commit('retrieveTaskList');
+      context.commit('retrieveTaskListGroup');
+    },
+  },
   mutations: {
+    retrieveTaskList(state) {
+      Axios.get(taskEndpoint).then((res) => {
+        res.data.forEach((obj) => {
+          const task = new Task(
+            obj.id,
+            obj.title,
+            obj.description,
+            new Date(obj.creationDate),
+            new Date(obj.lastUpdate),
+            obj.commentList,
+          );
+          this.state.taskCount = state.taskCount + 1;
+          state.taskList.push(task);
+        });
+      });
+    },
+    retrieveTaskListGroup(state) {
+      Axios.get(taskListEndpoint).then((res) => {
+        res.data.forEach((obj) => {
+          const taskList = new TaskList(
+            obj.id,
+            obj.title,
+            obj.taskList,
+          );
+          this.state.taskListCount = state.taskListCount + 1;
+          state.taskListGroup.push(taskList);
+        });
+      });
+    },
     createTask(state, obj) {
       this.state.taskCount = state.taskCount + 1;
       const task = new Task(state.taskCount, obj.title, obj.description);
@@ -62,6 +97,14 @@ const store = new Vuex.Store({
       const message = new Message(this.getters.currentUser, obj.content);
       selectedTask.addComment(message);
     },
+    updateTask(state, obj) {
+      const task = state.taskList.find(currentTask => obj.id === currentTask.id);
+      task.updateContent(
+        obj.title,
+        obj.description,
+      );
+      Axios.post(taskEndpoint, task);
+    },
     updateTaskListTitle(state, obj) {
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) taskList.title = obj.title;
@@ -79,14 +122,6 @@ const store = new Vuex.Store({
     },
     selectTask(state, id) {
       this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
-    },
-    updateTask(state, obj) {
-      const task = state.taskList.find(currentTask => obj.id === currentTask.id);
-      task.updateContent(
-        obj.title,
-        obj.description,
-      );
-      Axios.post(taskEndpoint, task);
     },
   },
 });

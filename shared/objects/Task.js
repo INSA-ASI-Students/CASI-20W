@@ -1,11 +1,18 @@
 class Task {
-  constructor(id = -1, title = '', description = '') {
+  constructor(
+    id = -1,
+    title = '',
+    description = '',
+    creationDate = new Date(),
+    lastUpdate = new Date(),
+    commentList = [],
+  ) {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.creationDate = new Date();
-    this.lastUpdate = this.creationDate;
-    this.commentList = [];
+    this.creationDate = creationDate;
+    this.lastUpdate = lastUpdate;
+    this.commentList = commentList;
   }
 
   getInformation() {

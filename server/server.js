@@ -12,7 +12,7 @@ else winston.level = 'debug';
 
 const app = express();
 const host = 'localhost';
-const port = 3000;
+const port = 8080;
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies

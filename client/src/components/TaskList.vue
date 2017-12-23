@@ -84,12 +84,14 @@ export default {
   computed: {
     taskList: {
       get() {
-        return this.self.taskList;
+        return this.self.taskList.map((taskId) => {
+          return this.$store.state.taskList.find(task => task.id === taskId);
+        });
       },
       set(state) {
         this.$store.commit('updateTaskPlace', {
           taskListId: this.self.id,
-          taskList: state,
+          taskList: state.map(task => task.id),
         });
       },
     },
