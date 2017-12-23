@@ -3,7 +3,6 @@ class Task {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.isSelected = false;
     this.creationDate = new Date();
     this.lastUpdate = this.creationDate;
     this.commentList = [];

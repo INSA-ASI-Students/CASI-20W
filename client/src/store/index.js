@@ -71,13 +71,10 @@ const store = new Vuex.Store({
       this.state.taskListGroup = obj;
     },
     unselectTasks(state) {
-      const selectedTasks = state.taskList.filter(task => task.isSelected);
-      for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
+      this.getters.currentUser.selectedTask = -1;
     },
     selectTask(state, id) {
-      const selectedTasks = state.taskList.filter(task => task.isSelected);
-      for (let i = 0; i < selectedTasks.length; i++) selectedTasks[i].isSelected = false;
-      this.state.taskList.find(task => task.id === id).isSelected = true;
+      this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
     },
     saveTask(state, obj) {
       state.taskList.find(task => obj.id === task.id).updateContent(

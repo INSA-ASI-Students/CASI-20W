@@ -1,7 +1,7 @@
 <template>
   <div
     class="card bg-secondary"
-    v-bind:class="{ isSelected: self.isSelected }"
+    v-bind:class="{ isSelected: isSelected }"
     v-on:click="selectTask"
   >
     <div class="card-header">
@@ -23,6 +23,11 @@ export default {
   store,
   data() {
     return {}
+  },
+  computed: {
+    isSelected() {
+      return this.$store.getters.currentUser.selectedTask === this.self.id;
+    },
   },
   methods: {
     selectTask() {

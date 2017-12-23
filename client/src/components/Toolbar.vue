@@ -29,7 +29,8 @@ export default {
       return !this.task;
     },
     task() {
-      return this.$store.state.taskList.find(task => task.isSelected);
+      const taskId = this.$store.getters.currentUser.selectedTask;
+      return this.$store.state.taskList.find(task => taskId === task.id);
     },
     userList() {
       return this.$store.state.userList;
