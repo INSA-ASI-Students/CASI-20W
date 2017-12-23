@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 taskListRessource(app, './database/taskLists.db');
 taskRessource(app, './database/tasks.db');
-userRessource(app, './database/users.db');
+userRessource(app, './database/users.db', winston);
 
 const server = app.listen(port, host, () => {
   winston.log('info', 'Server listening', {

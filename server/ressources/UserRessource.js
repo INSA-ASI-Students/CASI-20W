@@ -1,29 +1,28 @@
-/* eslint no-console:"off", no-underscore-dangle:"off" */
+/* eslint no-underscore-dangle:"off" */
 const Datastore = require('nedb');
 
 const endpoint = '/users';
 
-module.exports = (app, dbPath) => {
+module.exports = (app, dbPath, winston) => {
   const database = new Datastore(dbPath);
   database.loadDatabase();
 
   // ajout d'un user
   app.put(endpoint, (req, res) => {
-    console.log(req.body);
+    winston.log('debug', 'PUT > user', req.body);
     database.insert(req.body, (err, newDoc) => { // Callback is optional
       if (err) res.sendStatus(400);
       else {
         res.status(200).send({ _id: newDoc._id });
-        console.log('Inserted');
+        winston.log('debug', 'user created');
       }
-      database.count({}, (errCount, count) => {
-        console.log(count);
-      });
+      database.count({}, (errCount, count) => winston.log('debug', 'user count', count));
     });
   });
 
   // obtention des users
   app.get(endpoint, (req, res) => {
+    winston.log('debug', 'GET > user list');
     database.find({}, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
@@ -36,11 +35,12 @@ module.exports = (app, dbPath) => {
   // suppresion d'un user
   // /user/:id
   app.delete(`${endpoint}:id`, (req, res) => {
+    winston.log('debug', 'DEL > user', req.params.id);
     database.remove({ _id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
-        console.log('Removed');
+        winston.log('debug', 'user removed');
       }
     });
   });
