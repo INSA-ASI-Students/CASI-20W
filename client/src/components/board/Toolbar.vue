@@ -3,8 +3,9 @@
     <div class="user-list">
       <avatar
         class="avatar"
-        v-for="user in userList"v-bind:self="user"
-        key="`user${user.id}`"
+        v-for="user in userList"
+        v-bind:self="user"
+        v-bind:key="`user${user.id}`"
       />
     </div>
     <comments-box v-if="isCommentsBox" />
@@ -13,10 +14,10 @@
 </template>
 
 <script>
-import Avatar from './Avatar.vue';
+import Avatar from '../Avatar.vue';
 import CommentsBox from './CommentsBox.vue';
 import TaskEditionBox from './TaskEditionBox.vue';
-import store from '../store';
+import store from '../../store';
 
 export default {
   name: 'toolbar',

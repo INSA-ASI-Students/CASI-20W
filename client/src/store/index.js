@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: "off" */
+/* eslint no-param-reassign: "off" */
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
     receive,
   ],
   state: {
+    page: 'board',
     currentUserId: defaultUser.id,
     taskList: [],
     taskListGroup: [],
@@ -63,6 +65,7 @@ const store = new Vuex.Store({
     addTaskList(state, obj) {
       const taskList = new TaskList(state.taskListGroup.length + 1, obj.title);
       state.taskListGroup.push(taskList);
+      console.log(state.taskListGroup);
     },
     addUser(state, obj) {
       const user = new User(state.userList.length + 1, obj.name);
@@ -76,6 +79,9 @@ const store = new Vuex.Store({
       const selectedTask = state.taskList.find(task => obj.taskId === task.id);
       const message = new Message(this.getters.currentUser, obj.content);
       selectedTask.addComment(message);
+    },
+    switchPage(state, obj) {
+      state.page = obj.page;
     },
     updateTask(state, obj) {
       const task = state.taskList.find(currentTask => obj.id === currentTask.id);

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import store from '../store';
+import store from '../../store';
 import CommentBox from './CommentsBox.vue';
 
 export default {

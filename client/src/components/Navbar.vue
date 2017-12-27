@@ -4,7 +4,7 @@
       <a href="#" class="navbar-brand text-primary">{{title}}</a>
     </section>
     <section class="navbar-section">
-      <button type="button" class="btn btn-primary" v-on:click="createList">Add a list</button>
+      <button type="button" class="btn btn-primary" v-if="activeTools === 'board'" v-on:click="createList">Add a list</button>
     </section>
   </header>
 </template>
@@ -17,10 +17,11 @@ export default {
   store,
   props: [
     'title',
+    'activeTools'
   ],
   methods: {
     createList() {
-      store.commit("addTaskList", { title: "New List" });
+      this.$store.commit("addTaskList", { title: "New List" });
     }
   }
 }

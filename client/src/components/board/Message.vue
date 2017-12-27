@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import store from '../store';
-import Avatar from './Avatar.vue';
+import store from '../../store';
+import Avatar from '../Avatar.vue';
 
 export default {
   name: 'message',
