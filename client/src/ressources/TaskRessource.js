@@ -6,17 +6,28 @@ import config from '../../../shared/config.json';
 
 const addTask = (data) => {
   const task = new Task();
-  Axios.put(config.server.ressources.task.endpoint, task);
+  Axios({
+    method: 'put',
+    url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}`,
+    data: task,
+  });
 };
 
 const updateTask = (data) => {
   const task = new Task();
-  Axios.post(config.server.ressources.task.endpoint, task);
+  Axios({
+    method: 'post',
+    url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}`,
+    data: task,
+  });
 };
 
 const retrieveTaskList = () => new Promise((resolve, reject) => {
   const result = [];
-  Axios.get(config.server.ressources.task.endpoint)
+  Axios({
+    method: 'get',
+    url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}`,
+  })
     .then((res) => {
       res.data.forEach((obj) => {
         const task = new Task(
