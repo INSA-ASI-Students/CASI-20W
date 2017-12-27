@@ -1,14 +1,12 @@
 /* eslint no-underscore-dangle:"off" */
 const Datastore = require('nedb');
 
-const endpoint = '/api/users';
-
-module.exports = (app, dbPath, winston) => {
-  const database = new Datastore(dbPath);
+module.exports = (app, config, winston) => {
+  const database = new Datastore(config.database);
   database.loadDatabase();
 
   // ajout d'un user
-  app.put(endpoint, (req, res) => {
+  app.put(config.endpoint, (req, res) => {
     winston.log('debug', 'PUT > user', req.body);
     database.insert(req.body, (err, newDoc) => { // Callback is optional
       if (err) res.sendStatus(400);
@@ -20,7 +18,7 @@ module.exports = (app, dbPath, winston) => {
   });
 
   // obtention des users
-  app.get(endpoint, (req, res) => {
+  app.get(config.endpoint, (req, res) => {
     winston.log('debug', 'GET > user list');
     database.find({}, (err, docs) => {
       if (err) res.sendStatus(400);
@@ -33,7 +31,7 @@ module.exports = (app, dbPath, winston) => {
 
   // suppresion d'un user
   // /user/:id
-  app.delete(`${endpoint}:id`, (req, res) => {
+  app.delete(`${config.endpoint}:id`, (req, res) => {
     winston.log('debug', 'DEL > user', req.params.id);
     database.remove({ id: req.params.id }, (err) => {
       if (err) res.sendStatus(404);

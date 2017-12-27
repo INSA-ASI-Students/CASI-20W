@@ -24,7 +24,8 @@
     "vue": "^2.4.4",
     "vuedraggable": "^2.15.0",
     "vuex": "^3.0.1",
-    "winston": "^2.4.0"
+    "winston": "^2.4.0",
+    "yamljs": "^0.3.0"
   },
   "browserslist": [
     "> 1%",
