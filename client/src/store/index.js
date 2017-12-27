@@ -10,19 +10,19 @@ import {
   Message,
 } from '../../../shared/index';
 
-import PullData from '../interactions/PullData';
-import interactions from '../interactions/';
+import MessageRessource from '../ressources/MessageRessource';
+import TaskRessource from '../ressources/TaskRessource';
+import TaskListRessource from '../ressources/TaskListRessource';
+import UserRessource from '../ressources/UserRessource';
+import receive from '../ressources/receive';
 
 Vue.use(Vuex);
 
 const defaultUser = new User(1, 'anonymous');
-const taskEndpoint = '/api/tasks';
-const taskListEndpoint = '/api/taskLists';
-const userEndpoint = '/api/users';
 
 const store = new Vuex.Store({
   plugins: [
-    interactions,
+    receive,
   ],
   state: {
     currentUserId: defaultUser.id,
@@ -46,12 +46,12 @@ const store = new Vuex.Store({
   },
   mutations: {
     retrieveTaskList(state) {
-      PullData.retrieveTaskList().then((res) => {
+      TaskRessource.retrieveTaskList().then((res) => {
         this.state.taskList = res;
       });
     },
     retrieveTaskListGroup(state) {
-      PullData.retrieveTaskListGroup().then((res) => {
+      TaskListRessource.retrieveTaskListGroup().then((res) => {
         this.state.taskListGroup = res;
       });
     },

@@ -1,13 +1,18 @@
 /* eslint no-underscore-dangle: "off" */
 
 import Axios from 'axios';
+import { Task } from '../../../shared/index';
+import config from '../../../shared/config.json';
 
-import {
-  TaskList,
-  Task,
-} from '../../../shared/index';
+const addTask = (data) => {
+  const task = new Task();
+  Axios.put(config.server.ressources.task.endpoint, task);
+};
 
-const config = require('../../../shared/config.json');
+const updateTask = (data) => {
+  const task = new Task();
+  Axios.post(config.server.ressources.task.endpoint, task);
+};
 
 const retrieveTaskList = () => new Promise((resolve, reject) => {
   const result = [];
@@ -32,27 +37,8 @@ const retrieveTaskList = () => new Promise((resolve, reject) => {
     });
 });
 
-const retrieveTaskListGroup = () => new Promise((resolve, reject) => {
-  const result = [];
-  Axios.get(config.server.ressources.taskList.endpoint)
-    .then((res) => {
-      res.data.forEach((obj) => {
-        const taskList = new TaskList(
-          obj.id,
-          obj.title,
-          obj.taskList,
-          obj._id,
-        );
-        result.push(taskList);
-      });
-      resolve(result);
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
-
 export default {
+  addTask,
+  updateTask,
   retrieveTaskList,
-  retrieveTaskListGroup,
 };
