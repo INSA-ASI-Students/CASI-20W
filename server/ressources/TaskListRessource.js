@@ -11,7 +11,7 @@ module.exports = (app, config, winston) => {
     database.insert(req.body, (err, newDoc) => { // Callback is optional
       if (err) res.sendStatus(400);
       else {
-        res.status(200).send({ _id: newDoc._id });
+        res.status(200).send(newDoc);
         winston.log('debug', 'taskList created');
       }
     });
