@@ -2,13 +2,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const winston = require('winston');
-const YAML = require('yamljs');
 
 const taskListRessource = require('./ressources/TaskListRessource');
 const taskRessource = require('./ressources/TaskRessource');
 const userRessource = require('./ressources/UserRessource');
 
-const config = YAML.load('../shared/config.yml');
+const config = require('../shared/config.json');
 
 if (process.env.LOG_LEVEL) winston.level = process.env.LOG_LEVEL;
 else winston.level = 'debug';

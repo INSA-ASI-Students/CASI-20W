@@ -11,6 +11,9 @@ import {
   Message,
 } from '../../../shared/index';
 
+
+import DataController from './DataController';
+
 Vue.use(Vuex);
 
 const defaultUser = new User(1, 'anonymous');
@@ -21,9 +24,6 @@ const userEndpoint = '/api/users';
 const store = new Vuex.Store({
   state: {
     currentUserId: defaultUser.id,
-    taskCount: 0,
-    taskListCount: 0,
-    userCount: 1,
     taskList: [],
     taskListGroup: [],
     userList: [
@@ -44,48 +44,26 @@ const store = new Vuex.Store({
   },
   mutations: {
     retrieveTaskList(state) {
-      Axios.get(taskEndpoint).then((res) => {
-        res.data.forEach((obj) => {
-          const task = new Task(
-            obj.id,
-            obj.title,
-            obj.description,
-            new Date(obj.creationDate),
-            new Date(obj.lastUpdate),
-            obj.commentList,
-          );
-          this.state.taskCount = state.taskCount + 1;
-          state.taskList.push(task);
-        });
+      DataController.retrieveTaskList().then((res) => {
+        this.state.taskList = res;
       });
     },
     retrieveTaskListGroup(state) {
-      Axios.get(taskListEndpoint).then((res) => {
-        res.data.forEach((obj) => {
-          const taskList = new TaskList(
-            obj.id,
-            obj.title,
-            obj.taskList,
-          );
-          this.state.taskListCount = state.taskListCount + 1;
-          state.taskListGroup.push(taskList);
-        });
+      DataController.retrieveTaskListGroup().then((res) => {
+        this.state.taskListGroup = res;
       });
     },
     createTask(state, obj) {
-      this.state.taskCount = state.taskCount + 1;
-      const task = new Task(state.taskCount, obj.title, obj.description);
+      const task = new Task(state.taskList.length, obj.title, obj.description);
       state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
       Axios.put(taskEndpoint, task).then(res => state.taskList.push(task));
     },
     createTaskList(state, obj) {
-      this.state.taskListCount = state.taskListCount + 1;
-      const taskList = new TaskList(state.taskListCount, obj.title);
+      const taskList = new TaskList(state.taskListGroup.length, obj.title);
       Axios.put(taskListEndpoint, taskList).then(res => state.taskListGroup.push(taskList));
     },
     createUser(state, obj) {
-      this.state.userCount = state.user + 1;
-      const user = new User(state.userCount, obj.name);
+      const user = new User(state.userList.length, obj.name);
       Axios.put(userEndpoint, user).then(res => state.userList.push(user));
     },
     addGeneralComment(state, obj) {

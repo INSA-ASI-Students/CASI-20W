@@ -6,6 +6,7 @@ class Task {
     creationDate = new Date(),
     lastUpdate = new Date(),
     commentList = [],
+    document = undefined,
   ) {
     this.id = id;
     this.title = title;
@@ -13,6 +14,7 @@ class Task {
     this.creationDate = creationDate;
     this.lastUpdate = lastUpdate;
     this.commentList = commentList;
+    this.document = document;
   }
 
   getInformation() {
