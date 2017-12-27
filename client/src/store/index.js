@@ -2,7 +2,6 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Axios from 'axios';
 
 import {
   User,
@@ -11,8 +10,8 @@ import {
   Message,
 } from '../../../shared/index';
 
-
-import DataController from './DataController';
+import PullData from '../interactions/PullData';
+import interactions from '../interactions/';
 
 Vue.use(Vuex);
 
@@ -22,6 +21,9 @@ const taskListEndpoint = '/api/taskLists';
 const userEndpoint = '/api/users';
 
 const store = new Vuex.Store({
+  plugins: [
+    interactions,
+  ],
   state: {
     currentUserId: defaultUser.id,
     taskList: [],
@@ -44,27 +46,27 @@ const store = new Vuex.Store({
   },
   mutations: {
     retrieveTaskList(state) {
-      DataController.retrieveTaskList().then((res) => {
+      PullData.retrieveTaskList().then((res) => {
         this.state.taskList = res;
       });
     },
     retrieveTaskListGroup(state) {
-      DataController.retrieveTaskListGroup().then((res) => {
+      PullData.retrieveTaskListGroup().then((res) => {
         this.state.taskListGroup = res;
       });
     },
     createTask(state, obj) {
-      const task = new Task(state.taskList.length, obj.title, obj.description);
+      const task = new Task(state.taskList.length + 1, obj.title, obj.description);
       state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
-      Axios.put(taskEndpoint, task).then(res => state.taskList.push(task));
+      state.taskList.push(task);
     },
     createTaskList(state, obj) {
-      const taskList = new TaskList(state.taskListGroup.length, obj.title);
-      Axios.put(taskListEndpoint, taskList).then(res => state.taskListGroup.push(taskList));
+      const taskList = new TaskList(state.taskListGroup.length + 1, obj.title);
+      state.taskListGroup.push(taskList);
     },
     createUser(state, obj) {
-      const user = new User(state.userList.length, obj.name);
-      Axios.put(userEndpoint, user).then(res => state.userList.push(user));
+      const user = new User(state.userList.length + 1, obj.name);
+      state.userList.push(user);
     },
     addGeneralComment(state, obj) {
       const message = new Message(this.getters.currentUser, obj);
@@ -81,7 +83,6 @@ const store = new Vuex.Store({
         obj.title,
         obj.description,
       );
-      Axios.post(taskEndpoint, task);
     },
     updateTaskListTitle(state, obj) {
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
