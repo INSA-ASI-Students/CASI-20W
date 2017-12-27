@@ -8,10 +8,12 @@ module.exports = (app, config, winston) => {
   // ajout d'une tache
   app.put(config.endpoint, (req, res) => {
     winston.log('debug', 'ADD > task', req.body);
-    database.insert(req.body, (err, newDoc) => {
+    database.insert(req.body, (err) => {
       if (err) res.sendStatus(400);
       else {
-        res.status(200).send(newDoc);
+        res.status(200);
+        /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
+           GET sur l'endpoint courant afin de récupérer l'objet créé */
         winston.log('debug', 'task created');
       }
     });
@@ -37,6 +39,7 @@ module.exports = (app, config, winston) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
+        /* TODO: notifier tous les utilisateurs (en ajax reverse) que l'objet a été supprimé */
         winston.log('debug', 'task removed');
       }
     });
@@ -59,6 +62,8 @@ module.exports = (app, config, winston) => {
         if (err) res.sendStatus(400);
         else {
           res.sendStatus(200);
+          /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
+          GET sur l'endpoint courant afin de récupérer l'objet modifié */
           winston.log('debug', 'task updated');
         }
       },
