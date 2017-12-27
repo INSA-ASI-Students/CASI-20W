@@ -20,7 +20,7 @@ export default {
   ],
   methods: {
     createList() {
-      store.commit("createTaskList", { title: "New List" });
+      store.commit("addTaskList", { title: "New List" });
     }
   }
 }

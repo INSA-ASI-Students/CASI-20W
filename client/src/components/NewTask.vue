@@ -10,7 +10,7 @@
       <textarea class="form-input" type="text" placeholder="description" rows="3" v-model="taskDescription" />
     </div>
     <div class="card-footer">
-      <button class="btn btn-success btn-action circle" v-on:click="createTask">
+      <button class="btn btn-success btn-action circle" v-on:click="addTask">
         <i class="icon icon-check"></i>
       </button>
       <button class="btn btn-error btn-action circle" v-on:click="dismiss">
@@ -33,8 +33,8 @@ export default {
     }
   },
   methods: {
-    createTask() {
-      this.$store.commit('createTask', {
+    addTask() {
+      this.$store.commit('addTask', {
         title: this.taskTitle,
         description: this.taskDescription,
         taskListId: this.taskListId,

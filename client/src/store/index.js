@@ -55,16 +55,16 @@ const store = new Vuex.Store({
         this.state.taskListGroup = res;
       });
     },
-    createTask(state, obj) {
+    addTask(state, obj) {
       const task = new Task(state.taskList.length + 1, obj.title, obj.description);
       state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
       state.taskList.push(task);
     },
-    createTaskList(state, obj) {
+    addTaskList(state, obj) {
       const taskList = new TaskList(state.taskListGroup.length + 1, obj.title);
       state.taskListGroup.push(taskList);
     },
-    createUser(state, obj) {
+    addUser(state, obj) {
       const user = new User(state.userList.length + 1, obj.name);
       state.userList.push(user);
     },
