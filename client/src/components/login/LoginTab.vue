@@ -41,7 +41,6 @@ export default {
   computed: {
     activeTab: {
       get() {
-        console.log(this.$store.state.loginTab);
         return this.$store.state.loginTab;
       }
     }
