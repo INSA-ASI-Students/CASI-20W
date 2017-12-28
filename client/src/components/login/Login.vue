@@ -32,6 +32,7 @@ export default {
 
 <style lang="scss" scoped>
   .login {
+    color: #454d5d;
     margin: auto;
   }
 </style>

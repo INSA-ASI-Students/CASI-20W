@@ -6,7 +6,6 @@
         v-bind:class="{ active: activeTab === 'sign-in' }"
       >
         <a
-          v-bind:class="{ 'text-dark': activeTab !== 'sign-in' }"
           v-on:click="() => switchTab('sign-in')"
         >
           Sign In
@@ -17,7 +16,6 @@
         v-bind:class="{ active: activeTab === 'sign-up' }"
       >
         <a
-          v-bind:class="{ 'text-dark': activeTab !== 'sign-up' }"
           v-on:click="() => switchTab('sign-up')"
         >
           Sign Up
@@ -49,8 +47,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .tab-item .text-dark {
-    color: #454d5d;
-  }
-</style>
 
+</style>
