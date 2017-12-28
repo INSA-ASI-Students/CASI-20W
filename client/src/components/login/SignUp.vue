@@ -23,7 +23,12 @@
       >
       <p class="form-input-hint" v-if="!emptyConfirmPassword && !samePassword">Passwords are different</p>
       <div class="btn-sign-up">
-        <button class="btn btn-primary" v-bind:disabled="!samePassword">Sign Up</button>
+        <button
+          class="btn btn-primary"
+          v-bind:disabled="!samePassword || username === ''"
+        >
+          Sign Up
+        </button>
       </div>
     </div>
   </div>
