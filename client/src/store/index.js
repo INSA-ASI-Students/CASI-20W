@@ -26,7 +26,8 @@ const store = new Vuex.Store({
     receive,
   ],
   state: {
-    page: 'board',
+    page: 'login',
+    loginTab: 'sign-in',
     currentUserId: defaultUser.id,
     taskList: [],
     taskListGroup: [],
@@ -65,7 +66,6 @@ const store = new Vuex.Store({
     addTaskList(state, obj) {
       const taskList = new TaskList(state.taskListGroup.length + 1, obj.title);
       state.taskListGroup.push(taskList);
-      console.log(state.taskListGroup);
     },
     addUser(state, obj) {
       const user = new User(state.userList.length + 1, obj.name);
@@ -82,6 +82,9 @@ const store = new Vuex.Store({
     },
     switchPage(state, obj) {
       state.page = obj.page;
+    },
+    switchLoginTab(state, obj) {
+      state.loginTab = obj.loginTab;
     },
     updateTask(state, obj) {
       const task = state.taskList.find(currentTask => obj.id === currentTask.id);

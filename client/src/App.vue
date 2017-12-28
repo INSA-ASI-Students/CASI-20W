@@ -4,6 +4,7 @@
 
     <div class="page">
       <board v-if="activeComponent === 'board'"></board>
+      <login v-if="activeComponent === 'login'"></login>
     </div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import Board from './components/board/Board.vue';
+import Login from './components/login/Login.vue';
 import store from './store';
 
 export default {
@@ -33,7 +35,8 @@ export default {
   },
   components: {
     Navbar,
-    Board
+    Board,
+    Login
   },
 }
 </script>
