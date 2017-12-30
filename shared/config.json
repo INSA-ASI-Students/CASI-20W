@@ -18,7 +18,11 @@
       "user": {
         "endpoint": "/api/users",
         "database": "./database/users.db"
-      }
+      },
+			"message": {
+				"endpoint": "/api/messages",
+        "database": "./database/messages.db"
+			}
     }
   }
 }
