@@ -6,7 +6,7 @@ const winston = require('winston');
 const taskListRessource = require('./ressources/TaskListRessource');
 const taskRessource = require('./ressources/TaskRessource');
 const userRessource = require('./ressources/UserRessource');
-const messageRessource = require('./ressources/MessageRessource');
+// const messageRessource = require('./ressources/MessageRessource');
 
 
 const config = require('../shared/config.json');
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 taskRessource(app, config.server.ressources.task, winston);
 taskListRessource(app, config.server.ressources.taskList, winston);
 userRessource(app, config.server.ressources.user, winston);
-messageRessource(app, config.server.ressources.message, winston);
+// messageRessource(app, config.server.ressources.message, winston);
 
 const server = app.listen(
   config.server.port,

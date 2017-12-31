@@ -36,7 +36,7 @@ module.exports = (app, config, winston) => {
   // /taskList/:id
   app.delete(`${config.endpoint}/:id`, (req, res) => {
     winston.log('debug', 'DEL > taskList', req.params.id);
-    database.remove({ id: parseInt(req.params.id) }, (err) => {
+    database.remove({ id: parseInt(req.params.id, 10) }, (err) => {
       if (err) res.sendStatus(404);
       else {
         res.sendStatus(204);
@@ -49,7 +49,7 @@ module.exports = (app, config, winston) => {
   // obtention d'une tasklist
   app.get(`${config.endpoint}/:id`, (req, res) => {
     winston.log('debug', 'GET > tasklist ', req.params.id);
-    database.find({id: parseInt(req.params.id)}, (err, docs) => {
+    database.find({ id: parseInt(req.params.id, 10) }, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
         res.setHeader('Content-Type', 'text/json');
@@ -57,6 +57,4 @@ module.exports = (app, config, winston) => {
       }
     });
   });
-
-
 };
