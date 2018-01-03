@@ -54,7 +54,10 @@ module.exports = (app, config, winston) => {
         $set: {
           title: req.body.title,
           description: req.body.description,
+          creationDate: req.body.creationDate,
           lastUpdate: req.body.lastUpdate,
+          commentList: req.body.commentList,
+          document: req.body.document,
         },
       },
       {},
