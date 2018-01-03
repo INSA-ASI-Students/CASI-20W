@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const winston = require('winston');
 
+const boardRessource = require('./ressources/BoardRessource');
 const taskListRessource = require('./ressources/TaskListRessource');
 const taskRessource = require('./ressources/TaskRessource');
 const userRessource = require('./ressources/UserRessource');
@@ -18,7 +19,7 @@ else winston.level = 'debug';
 const app = express();
 
 // tableau qui stocke les reponses, pour les envoyer plus tard
-reponses = [];
+const reponses = [];
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -34,17 +35,18 @@ app.use((req, res, next) => {
   next();
 });
 
-notify = function(endpoint, id){
-  if(reponses.length != 0){
-    retour = { method : 'GET', endpoint : endpoint + "/" + id};
+const notify = (endpoint, id) => {
+  if (reponses.length !== 0) {
+    const retour = { method: 'GET', endpoint: `${endpoint}/${id}` };
     reponses.forEach((rep) => {
       rep.status(200).send(retour);
     });
     winston.log('debug', 'Notified');
-    reponses = [];
+    reponses.length = 0;
   }
-}
+};
 
+boardRessource(app, config.server.ressources.board, winston);
 taskRessource(app, config.server.ressources.task, winston);
 taskListRessource(app, config.server.ressources.taskList, winston);
 userRessource(app, config.server.ressources.user, winston);

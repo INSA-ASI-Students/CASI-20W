@@ -7,6 +7,10 @@
         "endpoint": "/api/messages",
         "database": "./database/messages.db"
       },
+      "board": {
+        "endpoint": "/api/boards",
+        "database": "./database/boards.db"
+      },
       "task": {
         "endpoint": "/api/tasks",
         "database": "./database/tasks.db"
@@ -19,10 +23,6 @@
         "endpoint": "/api/users",
         "database": "./database/users.db"
       },
-			"message": {
-				"endpoint": "/api/messages",
-        "database": "./database/messages.db"
-			},
 			"notify": {
 				"endpoint": "/api/notify"
 			}
