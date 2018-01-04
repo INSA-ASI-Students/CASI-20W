@@ -31,6 +31,30 @@ module.exports = (app, config, winston) => {
     });
   });
 
+  // Modification d'un tableau
+  app.post(config.endpoint, (req, res) => {
+    winston.log('debug', 'POST > board list', req.body);
+    database.update(
+      { id: req.body.id },
+      {
+        $set: {
+          title: req.body.title,
+          taskList: req.body.taskLists,
+          document: req.body.document,
+        },
+      },
+      {},
+      (err) => {
+        if (err) res.sendStatus(400);
+        else {
+          res.sendStatus(200);
+          /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
+          GET sur l'endpoint courant afin de récupérer l'objet modifié */
+          winston.log('debug', 'board updated');
+        }
+      },
+    );
+  });
 
   // suppresion d'un tableau
   // /boards/:id
