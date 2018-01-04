@@ -47,5 +47,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .login-tab {
+    .login-tabs {
+      .login-tab-item {
+        a:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
 </style>
