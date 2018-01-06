@@ -6,7 +6,8 @@ const winston = require('winston');
 const taskListRessource = require('./ressources/TaskListRessource');
 const taskRessource = require('./ressources/TaskRessource');
 const userRessource = require('./ressources/UserRessource');
-// const messageRessource = require('./ressources/MessageRessource');
+const messageRessource = require('./ressources/MessageRessource');
+const notifyRessource = require('./ressources/NotifyRessource');
 
 
 const config = require('../shared/config.json');
@@ -15,6 +16,9 @@ if (process.env.LOG_LEVEL) winston.level = process.env.LOG_LEVEL;
 else winston.level = 'debug';
 
 const app = express();
+
+// tableau qui stocke les reponses, pour les envoyer plus tard
+reponses = [];
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -30,10 +34,22 @@ app.use((req, res, next) => {
   next();
 });
 
+notify = function(endpoint, id){
+  if(reponses.length != 0){
+    retour = { method : 'GET', endpoint : endpoint + "/" + id};
+    reponses.forEach((rep) => {
+      rep.status(200).send(retour);
+    });
+    winston.log('debug', 'Notified');
+    reponses = [];
+  }
+}
+
 taskRessource(app, config.server.ressources.task, winston);
 taskListRessource(app, config.server.ressources.taskList, winston);
 userRessource(app, config.server.ressources.user, winston);
-// messageRessource(app, config.server.ressources.message, winston);
+messageRessource(app, config.server.ressources.message, winston);
+notifyRessource(app, config.server.ressources.notify, winston);
 
 const server = app.listen(
   config.server.port,

@@ -12,9 +12,8 @@ module.exports = (app, config, winston) => {
       if (err) res.sendStatus(400);
       else {
         res.sendStatus(200);
-        /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
-           GET sur l'endpoint courant afin de récupérer l'objet créé */
         winston.log('debug', 'taskList created');
+        notify(config.endpoint, req.body.id);
       }
     });
   });
@@ -48,9 +47,8 @@ module.exports = (app, config, winston) => {
         if (err) res.sendStatus(400);
         else {
           res.sendStatus(200);
-          /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
-          GET sur l'endpoint courant afin de récupérer l'objet modifié */
           winston.log('debug', 'taskList updated');
+          notify(config.endpoint, req.body.id);
         }
       },
     );

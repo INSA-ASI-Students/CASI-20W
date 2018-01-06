@@ -22,6 +22,9 @@
 			"message": {
 				"endpoint": "/api/messages",
         "database": "./database/messages.db"
+			},
+			"notify": {
+				"endpoint": "/api/notify"
 			}
     }
   }
