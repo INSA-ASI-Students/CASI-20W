@@ -5,12 +5,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import {
+  Board,
   User,
   TaskList,
   Task,
   Message,
 } from '../../../shared/index';
 
+import BoardRessource from '../ressources/BoardRessource';
 import MessageRessource from '../ressources/MessageRessource';
 import TaskRessource from '../ressources/TaskRessource';
 import TaskListRessource from '../ressources/TaskListRessource';
@@ -26,9 +28,10 @@ const store = new Vuex.Store({
     receive,
   ],
   state: {
-    page: 'login',
+    page: 'board-list',
     loginTab: 'sign-in',
     currentUserId: defaultUser.id,
+    boardGroup: [],
     taskList: [],
     taskListGroup: [],
     userList: [
@@ -57,6 +60,10 @@ const store = new Vuex.Store({
       TaskListRessource.retrieveTaskListGroup().then((res) => {
         this.state.taskListGroup = res;
       });
+    },
+    addBoard(state, obj) {
+      const board = new Board(state.boardGroup.length + 1, obj.title);
+      state.taskListGroup.push(board);
     },
     addTask(state, obj) {
       const task = new Task(state.taskList.length + 1, obj.title, obj.description);

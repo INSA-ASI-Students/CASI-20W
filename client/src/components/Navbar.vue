@@ -5,6 +5,7 @@
     </section>
     <section class="navbar-section">
       <button type="button" class="btn btn-primary" v-if="activeTools === 'board'" v-on:click="createList">Add a list</button>
+      <button type="button" class="btn btn-primary" v-if="activeTools === 'board-list'" v-on:click="createBoard">Add a board</button>
     </section>
   </header>
 </template>
@@ -22,6 +23,9 @@ export default {
   methods: {
     createList() {
       this.$store.commit("addTaskList", { title: "New List" });
+    },
+    createBoard() {
+      this.$store.commit("addBoard", { title: "New Board" });
     }
   }
 }
