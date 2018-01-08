@@ -25,7 +25,6 @@ const connectUser = (store, data) => Axios({
   url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}/${data.name}/${data.password}`,
 })
   .then((res) => {
-    console.log(res.data);
     if (res.status === 200) {
       store.commit('setCurrentUserId', res.data.id);
       return true;
