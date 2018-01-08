@@ -8,13 +8,23 @@ module.exports = (app, config, notify, winston) => {
   // ajout d'un user
   app.put(config.endpoint, (req, res) => {
     winston.log('debug', 'PUT > user', req.body);
-    database.insert(req.body, (err) => {
-      if (err) res.sendStatus(400);
-      else {
-        res.sendStatus(200);
-        winston.log('debug', 'user created');
-        notify(config.endpoint, req.body.id);
-      }
+    // get max id
+    database.findOne({}).sort({ id: -1 }).exec((err, userMaxId) => {
+      if (userMaxId) req.body.id = userMaxId.id + 1;
+      else req.body.id = 1;
+
+      database.findOne({ name: req.body.name }, (errFindUser, user) => {
+        if (user) {
+          res.sendStatus(400);
+        } else {
+          database.insert(req.body, () => {
+            res.setHeader('Content-Type', 'text/json');
+            res.status(200).send(req.body);
+            winston.log('debug', 'user created');
+            notify(config.endpoint, req.body.id);
+          });
+        }
+      });
     });
   });
 

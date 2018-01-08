@@ -21,14 +21,14 @@ import receive from '../ressources/receive';
 
 Vue.use(Vuex);
 
-const defaultUser = new User(1, 'anonymous');
+const defaultUser = new User(-1, 'anonymous');
 
 const store = new Vuex.Store({
   plugins: [
     receive,
   ],
   state: {
-    page: 'board-list',
+    page: 'login',
     loginTab: 'sign-in',
     currentUserId: defaultUser.id,
     boardGroup: [],
@@ -75,7 +75,7 @@ const store = new Vuex.Store({
       state.taskListGroup.push(taskList);
     },
     addUser(state, obj) {
-      const user = new User(state.userList.length + 1, obj.name);
+      const user = new User(obj.id, obj.name, obj.password);
       state.userList.push(user);
     },
     addGeneralComment(state, obj) {
@@ -117,6 +117,10 @@ const store = new Vuex.Store({
     },
     selectTask(state, id) {
       this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
+    },
+    setCurrentUserId(state, id) {
+      console.log(id);
+      this.state.currentUserId = id;
     },
   },
 });

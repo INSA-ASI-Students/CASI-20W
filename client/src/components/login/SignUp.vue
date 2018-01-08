@@ -25,6 +25,7 @@
       <div class="btn-sign-up">
         <button
           class="btn btn-primary"
+          v-on:click="signUp"
           v-bind:disabled="!samePassword || username === ''"
         >
           Sign Up
@@ -36,6 +37,7 @@
 
 <script>
 import store from '../../store';
+import UserRessource from '../../ressources/UserRessource';
 
 export default {
   name: 'sign-up',
@@ -60,6 +62,11 @@ export default {
         this.confirmPassword !== '' &&
         this.password === this.confirmPassword
       )
+    }
+  },
+  methods: {
+    signUp() {
+      UserRessource.addUser(this.$store, {name: this.username, password: this.password });
     }
   }
 }
