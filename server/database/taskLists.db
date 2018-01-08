@@ -1,7 +1,0 @@
-{"id":1,"title":"ToDo","taskList":[1,2,3],"_id":"5xAVDQWQvikdDTe9"}
-{"id":2,"title":"New List1","taskList":[4],"_id":"KmcqZslE7n2ZaHI2"}
-{"id":3,"title":"New List2","_id":"WwpU4dCc6z7e5O4t"}
-{"id":3,"title":"New List3","_id":"WwpU4dCc6z7e5O4t"}
-{"id":3,"user":1,"date":"12/12/2002","content":"Message de test2","document":"document2","_id":"uzDhQrvcKNzuLMJc"}
-{"$$deleted":true,"_id":"WwpU4dCc6z7e5O4t"}
-{"$$deleted":true,"_id":"uzDhQrvcKNzuLMJc"}
