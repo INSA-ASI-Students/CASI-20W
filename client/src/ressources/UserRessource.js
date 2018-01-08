@@ -1,10 +1,11 @@
+/* eslint no-underscore-dangle: "off" */
 import Axios from 'axios';
 import { User } from '../../../shared/index';
 import config from '../../../shared/config.json';
 
 const addUser = (store, data) => {
   const user = new User(0, data.name, data.password);
-  console.log(`ADDING ${user}`);
+
   return Axios({
     method: 'put',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}`,
@@ -19,18 +20,36 @@ const addUser = (store, data) => {
     });
 };
 
-const retrieveUsers = store =>
+const connectUser = (store, data) => Axios({
+  method: 'get',
+  url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}/${data.name}/${data.password}`,
+})
+  .then((res) => {
+    console.log(res.data);
+    if (res.status === 200) {
+      store.commit('setCurrentUserId', res.data.id);
+      return true;
+    }
+    return false;
+  });
+
+const retrieveUsers = () => {
+  const result = [];
   Axios({
     method: 'get',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}`,
   })
     .then((res) => {
-      for (let i = 0; i < res.data.length; i++) {
-        store.commit('addUser', res.data[i]);
-      }
+      res.data.forEach((obj) => {
+        const user = new User(obj.id, obj.name, undefined, obj._id);
+        result.push(user);
+      });
+      return result;
     });
+};
 
 export default {
   addUser,
+  connectUser,
   retrieveUsers,
 };

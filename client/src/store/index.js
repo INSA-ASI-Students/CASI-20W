@@ -61,6 +61,11 @@ const store = new Vuex.Store({
         this.state.taskListGroup = res;
       });
     },
+    retrieveUsers(state) {
+      UserRessource.retrieveUsers().then((res) => {
+        this.state.taskList = res;
+      });
+    },
     addBoard(state, obj) {
       const board = new Board(state.boardGroup.length + 1, obj.title);
       state.taskListGroup.push(board);
@@ -119,7 +124,6 @@ const store = new Vuex.Store({
       this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
     },
     setCurrentUserId(state, id) {
-      console.log(id);
       this.state.currentUserId = id;
     },
   },

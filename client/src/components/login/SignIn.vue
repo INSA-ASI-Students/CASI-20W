@@ -20,6 +20,7 @@
 
 <script>
 import store from '../../store';
+import UserRessource from '../../ressources/UserRessource';
 
 export default {
   name: 'sign-in',
@@ -33,7 +34,13 @@ export default {
   methods: {
     connect() {
       // TODO Ask server for connection
-      this.$store.commit('switchPage', { page: 'board' }) // To do on success
+      UserRessource
+        .connectUser(this.$store, { name: this.username, password: this.password })
+        .then((success) => {
+          if (success) {
+            this.$store.commit('switchPage', { page: 'board' });
+          }
+        });
     }
   }
 }

@@ -1,4 +1,5 @@
 /* eslint no-underscore-dangle:"off" */
+/* eslint no-param-reassign:"off" */
 const Datastore = require('nedb');
 
 module.exports = (app, config, notify, winston) => {
@@ -57,11 +58,24 @@ module.exports = (app, config, notify, winston) => {
   // obtention d'un user
   app.get(`${config.endpoint}/:id`, (req, res) => {
     winston.log('debug', 'GET > user ', req.params.id);
-    database.find({ id: parseInt(req.params.id, 10) }, (err, docs) => {
+    database.findOne({ id: parseInt(req.params.id, 10) }, (err, doc) => {
       if (err) res.sendStatus(400);
       else {
         res.setHeader('Content-Type', 'text/json');
-        res.status(200).send(docs);
+        res.status(200).send(doc);
+      }
+    });
+  });
+
+  // connection d'un user
+  app.get(`${config.endpoint}/:name/:password`, (req, res) => {
+    winston.log('debug', 'GET > user name password ', req.params.id);
+    database.findOne({ name: req.params.name, password: req.params.password }, (err, doc) => {
+      if (!doc) res.sendStatus(400);
+      else {
+        doc.password = undefined;
+        res.setHeader('Content-Type', 'text/json');
+        res.status(200).send(doc);
       }
     });
   });
