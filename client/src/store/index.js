@@ -48,6 +48,7 @@ const store = new Vuex.Store({
     retrieveData(context) {
       context.commit('retrieveTaskList');
       context.commit('retrieveTaskListGroup');
+      context.commit('retrieveUsers');
     },
   },
   mutations: {
@@ -63,7 +64,7 @@ const store = new Vuex.Store({
     },
     retrieveUsers(state) {
       UserRessource.retrieveUsers().then((res) => {
-        this.state.taskList = res;
+        this.state.userList = res;
       });
     },
     addBoard(state, obj) {

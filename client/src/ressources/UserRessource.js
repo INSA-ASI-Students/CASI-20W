@@ -34,7 +34,7 @@ const connectUser = (store, data) => Axios({
 
 const retrieveUsers = () => {
   const result = [];
-  Axios({
+  return Axios({
     method: 'get',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}`,
   })
