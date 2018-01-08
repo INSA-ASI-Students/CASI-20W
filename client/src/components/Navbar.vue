@@ -12,6 +12,7 @@
 
 <script>
 import store from '../store';
+import TaskListRessource from '../ressources/TaskListRessource';
 
 export default {
   name: 'navbar',
@@ -22,7 +23,7 @@ export default {
   ],
   methods: {
     createList() {
-      this.$store.commit("addTaskList", { title: "New List" });
+      TaskListRessource.addTaskList(this.$store, { title: "New List" });
     },
     createBoard() {
       this.$store.commit("addBoard", { title: "New Board" });

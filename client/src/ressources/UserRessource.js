@@ -14,9 +14,10 @@ const addUser = (store, data) => {
     .then((res) => {
       if (res.status === 200) {
         store.commit('setCurrentUserId', res.data.id);
+        store.commit('addUser', res.data);
+        return true;
       }
-
-      // TODO : Do something if there is an error
+      return false;
     });
 };
 

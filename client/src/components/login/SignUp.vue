@@ -66,7 +66,13 @@ export default {
   },
   methods: {
     signUp() {
-      UserRessource.addUser(this.$store, {name: this.username, password: this.password });
+      UserRessource
+        .addUser(this.$store, {name: this.username, password: this.password })
+        .then((success) => {
+          if (success) {
+            this.$store.commit('switchPage', { page: 'board' });
+          }
+        });
     }
   }
 }

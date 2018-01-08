@@ -3,17 +3,32 @@ import Axios from 'axios';
 import { TaskList } from '../../../shared/index';
 import config from '../../../shared/config.json';
 
-const addTaskList = (data) => {
-  const taskList = new TaskList();
-  Axios({
+const addTaskList = (store, data) => {
+  const taskList = new TaskList(
+    0,
+    data.title,
+  );
+  return Axios({
     method: 'put',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.taskList.endpoint}`,
     data: taskList,
-  });
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        store.commit('addTaskList', res.data);
+        return true;
+      }
+      return false;
+    });
 };
 
 const updateTaskList = (data) => {
-  const taskList = new TaskList();
+  const taskList = new TaskList(
+    data.id,
+    data.title,
+    data.taskList,
+    data.document,
+  );
   Axios({
     method: 'post',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.taskList.endpoint}`,

@@ -19,7 +19,7 @@ else winston.level = 'debug';
 const app = express();
 
 // tableau qui stocke les reponses, pour les envoyer plus tard
-const reponses = [];
+const responses = [];
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -37,13 +37,13 @@ app.use((req, res, next) => {
 });
 
 const notify = (endpoint, id) => {
-  if (reponses.length !== 0) {
+  if (responses.length !== 0) {
     const retour = { method: 'GET', endpoint: `${endpoint}/${id}` };
-    reponses.forEach((rep) => {
+    responses.forEach((rep) => {
       rep.status(200).send(retour);
     });
     winston.log('debug', 'Notified');
-    reponses.length = 0;
+    responses.length = 0;
   }
 };
 
@@ -52,7 +52,7 @@ taskRessource(app, config.server.ressources.task, notify, winston);
 taskListRessource(app, config.server.ressources.taskList, notify, winston);
 userRessource(app, config.server.ressources.user, notify, winston);
 messageRessource(app, config.server.ressources.message, notify, winston);
-notifyRessource(app, config.server.ressources.notify, notify, winston);
+notifyRessource(app, config.server.ressources.notify, notify, responses, winston);
 
 const server = app.listen(
   config.server.port,

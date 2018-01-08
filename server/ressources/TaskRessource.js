@@ -8,13 +8,21 @@ module.exports = (app, config, notify, winston) => {
   // ajout d'une tache
   app.put(config.endpoint, (req, res) => {
     winston.log('debug', 'ADD > task', req.body);
-    database.insert(req.body, (err) => {
-      if (err) res.sendStatus(400);
-      else {
-        res.sendStatus(200);
-        winston.log('debug', 'task created');
-        notify(config.endpoint, req.body.id);
-      }
+
+    // get max id
+    database.findOne({}).sort({ id: -1 }).exec((err, taskMaxId) => {
+      if (taskMaxId) req.body.id = taskMaxId.id + 1;
+      else req.body.id = 1;
+      database.insert(req.body, (errInsert) => {
+        if (errInsert) {
+          res.sendStatus(400);
+        } else {
+          res.setHeader('Content-Type', 'text/json');
+          res.status(200).send(req.body);
+          winston.log('debug', 'task created');
+          notify(config.endpoint, req.body.id);
+        }
+      });
     });
   });
 

@@ -22,6 +22,7 @@
 
 <script>
 import store from '../../store';
+import TaskRessource from '../../ressources/TaskRessource';
 
 export default {
   name: 'new-task',
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     addTask() {
-      this.$store.commit('addTask', {
+      TaskRessource.addTask(this.$store, {
         title: this.taskTitle,
         description: this.taskDescription,
         taskListId: this.taskListId,

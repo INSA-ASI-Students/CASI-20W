@@ -4,17 +4,37 @@ import Axios from 'axios';
 import { Task } from '../../../shared/index';
 import config from '../../../shared/config.json';
 
-const addTask = (data) => {
-  const task = new Task();
-  Axios({
+const addTask = (store, data) => {
+  const task = new Task(
+    0,
+    data.title,
+    data.description,
+  );
+  return Axios({
     method: 'put',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}`,
     data: task,
-  });
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        res.data.taskListId = data.taskListId;
+        store.commit('addTask', res.data);
+        return true;
+      }
+      return false;
+    });
 };
 
 const updateTask = (data) => {
-  const task = new Task();
+  const task = new Task(
+    data.id,
+    data.title,
+    data.description,
+    data.creationDate,
+    data.lastUpdate,
+    data.commentList,
+    data.document,
+  );
   Axios({
     method: 'post',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}`,

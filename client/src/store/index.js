@@ -49,6 +49,7 @@ const store = new Vuex.Store({
       context.commit('retrieveTaskList');
       context.commit('retrieveTaskListGroup');
       context.commit('retrieveUsers');
+      context.commit('retrieveMessages');
     },
   },
   mutations: {
@@ -67,31 +68,52 @@ const store = new Vuex.Store({
         this.state.userList = res;
       });
     },
+    retrieveMessages(state) {
+      MessageRessource.retrieveMessages().then((res) => {
+        this.state.commentList = res;
+      });
+    },
     addBoard(state, obj) {
       const board = new Board(state.boardGroup.length + 1, obj.title);
       state.taskListGroup.push(board);
     },
     addTask(state, obj) {
-      const task = new Task(state.taskList.length + 1, obj.title, obj.description);
-      state.taskListGroup.find(taskList => taskList.id === obj.taskListId).addTask(task);
+      const task = new Task(
+        obj.id,
+        obj.title,
+        obj.description,
+        obj.creationDate,
+        obj.lastUpdate,
+        obj.commentList,
+        obj.document,
+      );
+      const taskListGroup = state.taskListGroup.find(taskList => taskList.id === obj.taskListId);
+      taskListGroup.addTask(task);
       state.taskList.push(task);
+      TaskListRessource.updateTaskList(taskListGroup);
     },
     addTaskList(state, obj) {
-      const taskList = new TaskList(state.taskListGroup.length + 1, obj.title);
+      const taskList = new TaskList(obj.id, obj.title, obj.taskList, obj.document);
       state.taskListGroup.push(taskList);
     },
     addUser(state, obj) {
-      const user = new User(obj.id, obj.name, obj.password);
+      const user = new User(obj.id, obj.name, obj.password, obj.document);
       state.userList.push(user);
     },
     addGeneralComment(state, obj) {
       const message = new Message(this.getters.currentUser, obj);
       state.commentList.push(message);
+
+      // Put message
+      MessageRessource.addMessage(message);
     },
     addTaskComment(state, obj) {
       const selectedTask = state.taskList.find(task => obj.taskId === task.id);
       const message = new Message(this.getters.currentUser, obj.content);
       selectedTask.addComment(message);
+
+      // Update task
+      TaskRessource.updateTask(selectedTask);
     },
     switchPage(state, obj) {
       state.page = obj.page;
