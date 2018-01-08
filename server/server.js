@@ -46,12 +46,12 @@ const notify = (endpoint, id) => {
   }
 };
 
-boardRessource(app, config.server.ressources.board, winston);
-taskRessource(app, config.server.ressources.task, winston);
-taskListRessource(app, config.server.ressources.taskList, winston);
-userRessource(app, config.server.ressources.user, winston);
-messageRessource(app, config.server.ressources.message, winston);
-notifyRessource(app, config.server.ressources.notify, winston);
+boardRessource(app, config.server.ressources.board, notify, winston);
+taskRessource(app, config.server.ressources.task, notify, winston);
+taskListRessource(app, config.server.ressources.taskList, notify, winston);
+userRessource(app, config.server.ressources.user, notify, winston);
+messageRessource(app, config.server.ressources.message, notify, winston);
+notifyRessource(app, config.server.ressources.notify, notify, winston);
 
 const server = app.listen(
   config.server.port,

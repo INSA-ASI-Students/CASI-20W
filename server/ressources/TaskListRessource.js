@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle:"off" */
 const Datastore = require('nedb');
 
-module.exports = (app, config, winston) => {
+module.exports = (app, config, notify, winston) => {
   const database = new Datastore(config.database);
   database.loadDatabase();
 
