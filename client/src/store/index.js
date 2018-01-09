@@ -104,7 +104,6 @@ const store = new Vuex.Store({
       const taskListGroup = state.taskListGroup.find(taskList => taskList.id === obj.taskListId);
       taskListGroup.addTask(task);
       state.taskList.push(task);
-      // TaskListRessource.updateTaskList(taskListGroup);
     },
     addTaskList(state, obj) {
       const taskList = new TaskList(obj.id, obj.title, obj.taskList, obj.document);
@@ -120,17 +119,11 @@ const store = new Vuex.Store({
     addGeneralComment(state, obj) {
       const message = new Message(this.getters.currentUser, obj);
       state.commentList.push(message);
-
-      // Put message
-      // MessageRessource.addMessage(message);
     },
     addTaskComment(state, obj) {
       const selectedTask = state.taskList.find(task => obj.taskId === task.id);
       const message = new Message(this.getters.currentUser, obj.content);
       selectedTask.addComment(message);
-
-      // Update task
-      // TaskRessource.updateTask(selectedTask);
     },
     switchPage(state, obj) {
       state.page = obj.page;
@@ -144,7 +137,6 @@ const store = new Vuex.Store({
         obj.title,
         obj.description,
       );
-      // TaskRessource.updateTask(task);
     },
     updateUser(state, obj) {
       const user = state.userList.find(currentUser => obj.id === currentUser.id);
@@ -157,14 +149,12 @@ const store = new Vuex.Store({
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
       if (taskList) {
         taskList.title = obj.title;
-        // TaskListRessource.updateTaskList(taskList);
       }
     },
     updateTaskPlace(state, obj) {
       const taskListToUpdate = state.taskListGroup
         .find(taskList => taskList.id === obj.taskListId);
       taskListToUpdate.updateTaskList(obj.taskList);
-      // TaskListRessource.updateTaskList(taskListToUpdate);
     },
     updateTaskListPlace(state, obj) {
       this.state.taskListGroup = obj;
@@ -175,7 +165,6 @@ const store = new Vuex.Store({
     selectTask(state, id) {
       const currentUser = this.state.userList.find(user => user.id === state.currentUserId);
       currentUser.selectedTask = id;
-      // UserRessource.updateUser(currentUser);
     },
     setCurrentUserId(state, id) {
       this.state.currentUserId = id;
