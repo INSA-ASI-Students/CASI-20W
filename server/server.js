@@ -38,13 +38,11 @@ app.use((req, res, next) => {
 
 const notify = (endpoint, id) => {
   const data = { method: 'GET', endpoint, id };
-  console.log('nb cli : ' + responses.length);
 
   while (responses.length > 0) {
     responses.pop().status(200).send(data);
   }
   winston.log('debug', 'Notified');
-  responses.length = 0;
 };
 
 boardRessource(app, config.server.ressources.board, notify, winston);
