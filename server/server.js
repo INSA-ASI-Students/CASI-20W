@@ -37,9 +37,16 @@ app.use((req, res, next) => {
 });
 
 const notify = (endpoint, id) => {
-  const data = { method: 'GET', endpoint, id };
+  const data = [{ method: 'GET', endpoint, id }];
 
   while (responses.length > 0) {
+    if (endpoint === config.server.ressources.task.endpoint) {
+      data.push({
+        method: 'GET',
+        endpoint: config.server.ressources.taskList.endpoint,
+        id: undefined,
+      });
+    }
     responses.pop().status(200).send(data);
   }
   winston.log('debug', 'Notified');

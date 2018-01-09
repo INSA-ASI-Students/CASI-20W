@@ -63,11 +63,11 @@ const getUser = id => Axios({
   method: 'get',
   url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}/${id}`,
 }).then(res => new User(
-  res.data[0].id,
-  res.data[0].name,
+  res.data.id,
+  res.data.name,
   undefined,
-  res.data[0]._id,
-  res.data[0].selectedTask,
+  res.data._id,
+  res.data.selectedTask,
 ));
 
 export default {

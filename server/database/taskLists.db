@@ -1,11 +1,3 @@
-{"id":1,"title":"New List","taskList":[],"_id":"1bcEmVMxcldh7UzP"}
-{"id":1,"title":"New List","taskList":[1],"_id":"1bcEmVMxcldh7UzP"}
-{"id":1,"title":"New List","taskList":[1,2],"_id":"1bcEmVMxcldh7UzP","document":"1bcEmVMxcldh7UzP"}
-{"id":2,"title":"New List","taskList":[],"_id":"Aaa4Yl0nySfNePvy"}
-{"id":2,"title":"New List","taskList":[3],"_id":"Aaa4Yl0nySfNePvy","document":"Aaa4Yl0nySfNePvy"}
-{"id":2,"title":"New List","taskList":[4],"_id":"Aaa4Yl0nySfNePvy"}
-{"id":1,"title":"New List","taskList":[1,4],"_id":"1bcEmVMxcldh7UzP"}
-{"id":2,"title":"New List","taskList":[],"_id":"Aaa4Yl0nySfNePvy"}
-{"id":2,"title":"New List","taskList":[1],"_id":"Aaa4Yl0nySfNePvy"}
-{"id":1,"title":"New List","taskList":[4],"_id":"1bcEmVMxcldh7UzP"}
-{"id":1,"title":"New List","taskList":[4,5],"_id":"1bcEmVMxcldh7UzP","document":"1bcEmVMxcldh7UzP"}
+{"id":1,"title":"yolo","taskList":[1,5,2],"_id":"DdeIqAZKzERSFRbS","document":"DdeIqAZKzERSFRbS"}
+{"id":2,"title":"test","taskList":[3,4],"_id":"LUVcMbep5wQP5Muq","document":"LUVcMbep5wQP5Muq"}
+{"id":3,"title":"prout","taskList":[],"_id":"baqqENbq3i8V539y","document":"baqqENbq3i8V539y"}

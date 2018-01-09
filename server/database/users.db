@@ -1,2 +1,4 @@
-{"id":1,"name":"admin","password":"admin","selectedTask":-1,"_id":"hNvJp7wZFAVbQMuk"}
-{"id":2,"name":"user1","password":"user1","selectedTask":-1,"_id":"CzQWM1H1dMtt8wKj"}
+{"id":2,"name":"user1","password":"user1","selectedTask":4,"_id":"CzQWM1H1dMtt8wKj","document":"CzQWM1H1dMtt8wKj"}
+{"id":1,"name":"admin","password":"admin","selectedTask":4,"_id":"hNvJp7wZFAVbQMuk","document":"hNvJp7wZFAVbQMuk"}
+{"id":2,"name":"user1","password":"user1","selectedTask":4,"_id":"CzQWM1H1dMtt8wKj","document":"CzQWM1H1dMtt8wKj"}
+{"id":1,"name":"admin","password":"admin","selectedTask":3,"_id":"hNvJp7wZFAVbQMuk","document":"hNvJp7wZFAVbQMuk"}

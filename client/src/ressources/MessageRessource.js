@@ -23,6 +23,7 @@ const retrieveMessages = () => {
     .then((res) => {
       res.data.forEach((obj) => {
         const message = new Message(obj.user, obj.content, obj._id);
+        message.date = new Date(obj.date);
         result.push(message);
       });
       return result;

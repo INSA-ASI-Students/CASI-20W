@@ -21,6 +21,10 @@
 <script>
 import store from '../../store';
 import Message from './Message.vue';
+import TaskRessource from '../../ressources/TaskRessource';
+import MessageRessource from '../../ressources/MessageRessource';
+import MessageObj from '../../../../shared/objects/Message';
+
 
 export default {
   name: 'comments-box',
@@ -32,8 +36,10 @@ export default {
   },
   computed: {
     commentList() {
-      if (this.task) return this.task.commentList;
-      return this.$store.state.commentList;
+      let comments = [];
+      if (this.task) comments = this.task.commentList;
+      else comments = this.$store.state.commentList;
+      return comments.sort((a , b) => a.date - b.date);
     },
   },
   props: [
@@ -41,11 +47,17 @@ export default {
   ],
   methods: {
     sendMessage() {
-      if (this.task) this.$store.commit('addTaskComment', {
-        taskId: this.task.id,
-        content: this.content,
-      });
-      else this.$store.commit('addGeneralComment', this.content);
+      const message = new MessageObj(
+        this.$store.getters.currentUser,
+        this.content,
+      )
+
+      if (this.task) {
+        const update = task;
+        update.addComment(message);
+        TaskRessource.updateTask(update)
+      }
+      else MessageRessource.addMessage(message);
       this.content = '';
     },
   },

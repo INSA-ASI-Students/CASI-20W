@@ -3,8 +3,8 @@
 
 import config from '../../../shared/config.json';
 import MessageRessource from './MessageRessource';
-import TaskRessource from './TaskRessource';
-import TaskListRessource from './TaskListRessource';
+// import TaskRessource from './TaskRessource';
+// import TaskListRessource from './TaskListRessource';
 import UserRessource from './UserRessource';
 
 const updateRessource = (store, method, endpoint, id = undefined) => {
@@ -32,7 +32,7 @@ const updateRessource = (store, method, endpoint, id = undefined) => {
       store.commit('retrieveTaskListGroup');
       break;
     case config.server.ressources.user.endpoint:
-      if (id) UserRessource.getTaskList(id).then((user) => {
+      if (id) UserRessource.getUser(id).then((user) => {
         if (store.state.userList.find(obj => obj.id === id)) store.commit('updateUser', user);
         else store.commit('addUser', user);
       });
@@ -46,7 +46,10 @@ const getNotified = (store) => {
   const xdr = new XMLHttpRequest();
   xdr.onload = () => {
     const res = JSON.parse(xdr.responseText);
-    updateRessource(store, res.method, res.endpoint, res.id);
+    for (let i = 0; i < res.length; i++) {
+      const obj = res[i];
+      updateRessource(store, obj.method, obj.endpoint, obj.id);
+    }
     getNotified(store);
   };
 
