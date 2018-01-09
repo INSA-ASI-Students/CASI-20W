@@ -58,11 +58,11 @@ export default {
     },
     samePassword () {
       return (
-        this.password !== '' && 
+        this.password !== '' &&
         this.confirmPassword !== '' &&
         this.password === this.confirmPassword
       )
-    }
+    },
   },
   methods: {
     signUp() {

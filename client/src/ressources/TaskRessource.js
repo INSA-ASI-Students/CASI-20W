@@ -3,6 +3,7 @@
 import Axios from 'axios';
 import { Task } from '../../../shared/index';
 import config from '../../../shared/config.json';
+import TaskListRessource from './TaskListRessource';
 
 const addTask = (store, data) => {
   const task = new Task(
@@ -19,6 +20,8 @@ const addTask = (store, data) => {
       if (res.status === 200) {
         res.data.taskListId = data.taskListId;
         store.commit('addTask', res.data);
+        const taskList = store.state.taskListGroup.find(obj => obj.id === data.taskListId);
+        TaskListRessource.updateTaskList(taskList);
         return true;
       }
       return false;
