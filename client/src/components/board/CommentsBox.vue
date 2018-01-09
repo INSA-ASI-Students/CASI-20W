@@ -53,7 +53,7 @@ export default {
       )
 
       if (this.task) {
-        const update = task;
+        const update = this.task;
         update.addComment(message);
         TaskRessource.updateTask(update)
       }

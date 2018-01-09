@@ -32,6 +32,8 @@
 <script>
 import store from '../../store';
 import CommentBox from './CommentsBox.vue';
+import TaskRessource from '../../ressources/TaskRessource';
+import UserRessource from '../../ressources/UserRessource';
 
 export default {
   name: 'task-edition-box',
@@ -57,15 +59,15 @@ export default {
   },
   methods: {
     saveTask() {
-      this.$store.commit('updateTask', {
-        id: this.self.id,
-        title: this.title,
-        description: this.description,
-      });
+      const task = this.self;
+      task.updateContent(this.title, this.description);
+      TaskRessource.updateTask(task);
       this.dismissTask();
     },
     dismissTask() {
-      this.$store.commit('unselectTasks');
+      const user = this.$store.getters.currentUser;
+      user.selectedTask = -1;
+      UserRessource.updateUser(user);
     },
   },
   components: {

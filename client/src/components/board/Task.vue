@@ -17,6 +17,7 @@
 
 <script>
 import store from '../../store';
+import UserRessource from '../../ressources/UserRessource';
 
 export default {
   name: 'task',
@@ -31,7 +32,9 @@ export default {
   },
   methods: {
     selectTask() {
-      this.$store.commit('selectTask', this.self.id);
+      const user = this.$store.getters.currentUser;
+      user.selectedTask = this.self.id;
+      UserRessource.updateUser(user);
     },
   },
   props: [

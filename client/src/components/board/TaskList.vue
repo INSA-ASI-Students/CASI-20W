@@ -47,6 +47,7 @@ import draggable from 'vuedraggable';
 import NewTask from './NewTask.vue';
 import Task from './Task.vue';
 import store from '../../store';
+import TaskListRessource from '../../ressources/TaskListRessource';
 
 export default {
   name: 'task-list',
@@ -70,10 +71,9 @@ export default {
       this.isEditTitle = true;
     },
     updateTitle() {
-      this.$store.commit('updateTaskListTitle', {
-        id: this.self.id,
-        title: this.taskListTitle,
-      });
+      const taskList = this.self;
+      taskList.title = this.taskListTitle;
+      TaskListRessource.updateTaskList(taskList);
       this.isEditTitle = false;
     },
   },
@@ -89,10 +89,9 @@ export default {
         });
       },
       set(state) {
-        this.$store.commit('updateTaskPlace', {
-          taskListId: this.self.id,
-          taskList: state.map(task => task.id),
-        });
+        const taskList = this.self;
+        taskList.updateTaskList(state.map(task => task.id));
+        TaskListRessource.updateTaskList(taskList);
       },
     },
   },
