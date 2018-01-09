@@ -16,7 +16,7 @@
 </template>
 
 
-<<script>
+<script>
 import TaskList from './TaskList.vue';
 import Toolbar from './Toolbar.vue';
 import draggable from 'vuedraggable';
@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<<style lang="scss" scoped>
+<style lang="scss" scoped>
   $taskListWidth: 80%;
 
   .board {

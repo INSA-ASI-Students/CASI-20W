@@ -68,8 +68,22 @@ const retrieveTaskList = () => new Promise((resolve, reject) => {
     });
 });
 
+const getTask = id => Axios({
+  method: 'get',
+  url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}/${id}`,
+}).then(res => new Task(
+  res.data[0].id,
+  res.data[0].title,
+  res.data[0].description,
+  new Date(res.data[0].creationDate),
+  new Date(res.data[0].lastUpdate),
+  res.data[0].commentList,
+  res.data[0]._id,
+));
+
 export default {
   addTask,
   updateTask,
   retrieveTaskList,
+  getTask,
 };

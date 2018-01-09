@@ -1,22 +1,42 @@
 /* global XMLHttpRequest */
-import Axios from 'axios';
+/* eslint brace-style:"off", curly:"off" */
+
 import config from '../../../shared/config.json';
+import MessageRessource from './MessageRessource';
+import TaskRessource from './TaskRessource';
+import TaskListRessource from './TaskListRessource';
+import UserRessource from './UserRessource';
 
 const updateRessource = (store, method, endpoint, id = undefined) => {
   switch (endpoint) {
     case config.server.ressources.message.endpoint:
-      store.commit('retrieveMessages');
+      if (id) store.commit('addMessage', MessageRessource.getMessage(id));
+      else store.commit('retrieveMessages');
       break;
     case config.server.ressources.board.endpoint:
       break;
     case config.server.ressources.task.endpoint:
+      // if (id) TaskRessource.getTask(id).then((task) => {
+      //   if (store.state.taskList.find(obj => obj.id === id)) store.commit('updateTask', task);
+      //   else store.commit('addTask', task);
+      // });
+      // else store.commit('retrieveTaskList');
       store.commit('retrieveTaskList');
       break;
     case config.server.ressources.taskList.endpoint:
+      // if (id) TaskListRessource.getTaskList(id).then((taskList) => {
+      //   if (store.state.taskListGroup.find(obj => obj.id === id)) store.commit('updateTaskListTitle', taskList);
+      //   else store.commit('addTaskList', taskList);
+      // });
+      // else store.commit('retrieveTaskListGroup');
       store.commit('retrieveTaskListGroup');
       break;
     case config.server.ressources.user.endpoint:
-      store.commit('retrieveUsers');
+      if (id) UserRessource.getTaskList(id).then((user) => {
+        if (store.state.userList.find(obj => obj.id === id)) store.commit('updateUser', user);
+        else store.commit('addUser', user);
+      });
+      else store.commit('retrieveUsers');
       break;
     default:
   }

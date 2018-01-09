@@ -1,9 +1,9 @@
 class User {
-  constructor(id, name, password, document = undefined) {
+  constructor(id, name, password, document = undefined, selectedTask = -1) {
     this.id = id;
     this.name = name;
     this.password = password;
-    this.selectedTask = -1;
+    this.selectedTask = selectedTask;
     this.document = document;
   }
 }
