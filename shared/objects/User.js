@@ -6,6 +6,11 @@ class User {
     this.selectedTask = selectedTask;
     this.document = document;
   }
+
+  update(name, selectedTask) {
+    this.name = name;
+    this.selectedTask = selectedTask;
+  }
 }
 
 module.exports = User;

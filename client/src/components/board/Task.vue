@@ -12,11 +12,15 @@
     <div class="card-footer text-gray">
       {{self.lastUpdate.toLocaleString()}}
     </div>
+    <div class="card-footer">
+      <avatar class="avatar" v-bind:self="user" v-for="user in users"/>
+    </div>
   </div>
 </template>
 
 <script>
 import store from '../../store';
+import Avatar from '../Avatar.vue';
 import UserRessource from '../../ressources/UserRessource';
 
 export default {
@@ -29,6 +33,9 @@ export default {
     isSelected() {
       return this.$store.getters.currentUser.selectedTask === this.self.id;
     },
+    users() {
+      return this.$store.state.userList.filter(obj => obj.selectedTask === this.self.id);
+    },
   },
   methods: {
     selectTask() {
@@ -40,11 +47,18 @@ export default {
   props: [
     'self',
   ],
+  components: {
+    Avatar
+  },
 }
 </script>
 
 <style lang="scss" scoped>
   @import '~spectre.css/src/variables';
+
+  .avatar {
+    float: right;
+  }
 
   .card {
     cursor: pointer;

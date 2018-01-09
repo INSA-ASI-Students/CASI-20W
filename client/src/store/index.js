@@ -147,7 +147,11 @@ const store = new Vuex.Store({
       // TaskRessource.updateTask(task);
     },
     updateUser(state, obj) {
-
+      const user = state.userList.find(currentUser => obj.id === currentUser.id);
+      user.update(
+        obj.name,
+        obj.selectedTask,
+      );
     },
     updateTaskListTitle(state, obj) {
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
