@@ -127,15 +127,20 @@ const store = new Vuex.Store({
         obj.title,
         obj.description,
       );
+      TaskRessource.updateTask(task);
     },
     updateTaskListTitle(state, obj) {
       const taskList = state.taskListGroup.find(pointer => pointer.id === obj.id);
-      if (taskList) taskList.title = obj.title;
+      if (taskList) {
+        taskList.title = obj.title;
+        TaskListRessource.updateTaskList(taskList);
+      }
     },
     updateTaskPlace(state, obj) {
-      state.taskListGroup
-        .find(taskList => taskList.id === obj.taskListId)
-        .updateTaskList(obj.taskList);
+      const taskListToUpdate = state.taskListGroup
+        .find(taskList => taskList.id === obj.taskListId);
+      taskListToUpdate.updateTaskList(obj.taskList);
+      TaskListRessource.updateTaskList(taskListToUpdate);
     },
     updateTaskListPlace(state, obj) {
       this.state.taskListGroup = obj;
