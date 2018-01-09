@@ -50,9 +50,15 @@ const store = new Vuex.Store({
       context.commit('retrieveTaskListGroup');
       context.commit('retrieveUsers');
       context.commit('retrieveMessages');
+      context.commit('retrieveBoardGroup');
     },
   },
   mutations: {
+    retrieveBoardGroup(state) {
+      BoardRessource.retrieveBoardGroup().then((res) => {
+        this.state.boardGroup = res;
+      });
+    },
     retrieveTaskList(state) {
       TaskRessource.retrieveTaskList().then((res) => {
         this.state.taskList = res;
@@ -74,7 +80,7 @@ const store = new Vuex.Store({
       });
     },
     addBoard(state, obj) {
-      const board = new Board(state.boardGroup.length + 1, obj.title);
+      const board = new Board(obj.id, obj.title);
       state.taskListGroup.push(board);
     },
     addTask(state, obj) {

@@ -29,6 +29,8 @@ const getNotified = (store) => {
     updateRessource(store, res.method, res.endpoint, res.id);
     getNotified(store);
   };
+
+  xdr.onerror = () => getNotified(store);
   xdr.open('GET', `http://${config.server.hostname}:${config.server.port}${config.server.ressources.notify.endpoint}`);
   xdr.send();
 };
