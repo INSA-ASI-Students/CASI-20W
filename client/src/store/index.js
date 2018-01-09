@@ -56,7 +56,15 @@ const store = new Vuex.Store({
   mutations: {
     retrieveBoardGroup(state) {
       BoardRessource.retrieveBoardGroup().then((res) => {
-        this.state.boardGroup = res;
+        if (res.length !== 0) {
+          this.state.boardGroup = res;
+        } else {
+          BoardRessource
+            .addBoard({})
+            .then(() => {
+              this.commit('retrieveBoardGroup');
+            });
+        }
       });
     },
     retrieveTaskList(state) {
@@ -81,7 +89,7 @@ const store = new Vuex.Store({
     },
     addBoard(state, obj) {
       const board = new Board(obj.id, obj.title);
-      state.taskListGroup.push(board);
+      state.boardGroup.push(board);
     },
     addTask(state, obj) {
       const task = new Task(
@@ -100,7 +108,10 @@ const store = new Vuex.Store({
     },
     addTaskList(state, obj) {
       const taskList = new TaskList(obj.id, obj.title, obj.taskList, obj.document);
+      const board = state.boardGroup.find(taskListGroup => taskListGroup.id === 1);
+      board.addTaskList(taskList);
       state.taskListGroup.push(taskList);
+      BoardRessource.updateBoard(board);
     },
     addUser(state, obj) {
       const user = new User(obj.id, obj.name, obj.password, obj.document);

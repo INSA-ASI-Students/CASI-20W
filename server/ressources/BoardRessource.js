@@ -8,14 +8,21 @@ module.exports = (app, config, notify, winston) => {
   // creation d'un tableau
   app.put(config.endpoint, (req, res) => {
     winston.log('debug', 'ADD > board', req.body);
-    database.insert(req.body, (err) => {
-      if (err) res.sendStatus(400);
-      else {
-        res.sendStatus(200);
-        /* TODO: notifier tous les utilisateurs (en ajax reverse) de faire un
-           GET sur l'endpoint courant afin de récupérer l'objet créé */
-        winston.log('debug', 'board created');
-      }
+
+    // get max id
+    database.findOne({}).sort({ id: -1 }).exec((err, boardMaxId) => {
+      if (boardMaxId) req.body.id = boardMaxId.id + 1;
+      else req.body.id = 1;
+      database.insert(req.body, (errInsert) => {
+        if (errInsert) {
+          res.sendStatus(400);
+        } else {
+          res.setHeader('Content-Type', 'text/json');
+          res.status(200).send(req.body);
+          winston.log('debug', 'task created');
+          notify(config.endpoint, req.body.id);
+        }
+      });
     });
   });
 

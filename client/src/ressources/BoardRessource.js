@@ -5,7 +5,7 @@ import config from '../../../shared/config.json';
 
 const addBoard = (data) => {
   const board = new Board();
-  Axios({
+  return Axios({
     method: 'put',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.board.endpoint}`,
     data: board,
@@ -13,7 +13,7 @@ const addBoard = (data) => {
 };
 
 const updateBoard = (data) => {
-  const board = new Board();
+  const board = new Board(data.id, data.title, data.taskLists, data.users, data.document);
   Axios({
     method: 'post',
     url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.board.endpoint}`,
@@ -33,7 +33,7 @@ const retrieveBoardGroup = () => new Promise((resolve, reject) => {
           obj.id,
           obj.title,
           obj.taskList,
-          obj._id,
+          obj.document,
         );
         result.push(board);
       });
