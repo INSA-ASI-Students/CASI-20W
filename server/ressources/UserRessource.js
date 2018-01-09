@@ -20,6 +20,7 @@ module.exports = (app, config, notify, winston) => {
         } else {
           database.insert(req.body, () => {
             res.setHeader('Content-Type', 'text/json');
+            req.body.password = undefined;
             res.status(200).send(req.body);
             winston.log('debug', 'user created');
             notify(config.endpoint, req.body.id);
@@ -27,6 +28,29 @@ module.exports = (app, config, notify, winston) => {
         }
       });
     });
+  });
+
+  // Modification d'un utilisateur
+  app.post(config.endpoint, (req, res) => {
+    winston.log('debug', 'POST > user', req.body);
+    database.update(
+      { id: req.body.id },
+      {
+        $set: {
+          selectedTask: req.body.selectedTask,
+          document: req.body.document,
+        },
+      },
+      {},
+      (err) => {
+        if (err) res.sendStatus(400);
+        else {
+          res.sendStatus(200);
+          winston.log('debug', 'user updated');
+          notify(config.endpoint, req.body.id);
+        }
+      },
+    );
   });
 
   // obtention des users

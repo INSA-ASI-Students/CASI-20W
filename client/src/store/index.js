@@ -149,7 +149,9 @@ const store = new Vuex.Store({
       this.getters.currentUser.selectedTask = -1;
     },
     selectTask(state, id) {
-      this.state.userList.find(user => user.id === state.currentUserId).selectedTask = id;
+      const currentUser = this.state.userList.find(user => user.id === state.currentUserId);
+      currentUser.selectedTask = id;
+      UserRessource.updateUser(currentUser);
     },
     setCurrentUserId(state, id) {
       this.state.currentUserId = id;

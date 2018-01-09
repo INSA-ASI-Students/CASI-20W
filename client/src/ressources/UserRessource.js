@@ -33,6 +33,17 @@ const connectUser = (store, data) => Axios({
     return false;
   });
 
+const updateUser = (data) => {
+  const user = new User(data.id, data.name, undefined, data.document);
+  user.selectedTask = data.selectedTask;
+
+  Axios({
+    method: 'post',
+    url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.user.endpoint}`,
+    data: user,
+  });
+};
+
 const retrieveUsers = () => {
   const result = [];
   return Axios({
@@ -52,4 +63,5 @@ export default {
   addUser,
   connectUser,
   retrieveUsers,
+  updateUser,
 };
