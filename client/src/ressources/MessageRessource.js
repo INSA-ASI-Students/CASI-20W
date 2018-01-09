@@ -33,7 +33,7 @@ const retrieveMessages = () => {
 const getMessage = id => Axios({
   method: 'get',
   url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.message.endpoint}/${id}`,
-}).then(res => new Message(res.data[0].user, res.data[0].content, res.data[0]._id));
+}).then(res => new Message(res.data.user, res.data.content, res.data._id));
 
 export default {
   addMessage,

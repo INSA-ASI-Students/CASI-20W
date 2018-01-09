@@ -1,2 +1,2 @@
-{"id":1,"name":"admin","password":"admin","selectedTask":-1,"_id":"SDQfTUGk1cWoRDJq"}
-{"id":2,"name":"user1","password":"user1","selectedTask":-1,"_id":"yeU2eXLOjkYYtezP"}
+{"id":1,"name":"admin","password":"admin","selectedTask":1,"_id":"SDQfTUGk1cWoRDJq","document":"SDQfTUGk1cWoRDJq"}
+{"id":2,"name":"user1","password":"user1","selectedTask":1,"_id":"yeU2eXLOjkYYtezP","document":"yeU2eXLOjkYYtezP"}

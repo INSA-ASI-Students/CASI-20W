@@ -13,7 +13,7 @@
       {{self.lastUpdate.toLocaleString()}}
     </div>
     <div class="card-footer">
-      <avatar class="avatar" v-bind:self="user" v-for="user in users"/>
+      <avatar class="avatar" v-bind:key="`taskAvatar${user.id}`" v-bind:self="user" v-for="user in users"/>
     </div>
   </div>
 </template>

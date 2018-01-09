@@ -75,13 +75,13 @@ const getTask = id => Axios({
   method: 'get',
   url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.task.endpoint}/${id}`,
 }).then(res => new Task(
-  res.data[0].id,
-  res.data[0].title,
-  res.data[0].description,
-  new Date(res.data[0].creationDate),
-  new Date(res.data[0].lastUpdate),
-  res.data[0].commentList,
-  res.data[0]._id,
+  res.data.id,
+  res.data.title,
+  res.data.description,
+  new Date(res.data.creationDate),
+  new Date(res.data.lastUpdate),
+  res.data.commentList,
+  res.data._id,
 ));
 
 export default {

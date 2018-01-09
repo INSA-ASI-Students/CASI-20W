@@ -79,7 +79,7 @@ module.exports = (app, config, notify, winston) => {
   // obtention d'une tasklist
   app.get(`${config.endpoint}/:id`, (req, res) => {
     winston.log('debug', 'GET > tasklist ', req.params.id);
-    database.find({ id: parseInt(req.params.id, 10) }, (err, docs) => {
+    database.findOne({ id: parseInt(req.params.id, 10) }, (err, docs) => {
       if (err) res.sendStatus(400);
       else {
         res.setHeader('Content-Type', 'text/json');

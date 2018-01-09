@@ -63,10 +63,10 @@ const getTaskList = id => Axios({
   method: 'get',
   url: `http://${config.server.hostname}:${config.server.port}${config.server.ressources.taskList.endpoint}/${id}`,
 }).then(res => new TaskList(
-  res.data[0].id,
-  res.data[0].title,
-  res.data[0].taskList,
-  res.data[0]._id,
+  res.data.id,
+  res.data.title,
+  res.data.taskList,
+  res.data._id,
 ));
 
 export default {

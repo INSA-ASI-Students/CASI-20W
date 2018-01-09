@@ -25,7 +25,7 @@ const updateRessource = (store, method, endpoint, id = undefined) => {
       break;
     case config.server.ressources.taskList.endpoint:
       // if (id) TaskListRessource.getTaskList(id).then((taskList) => {
-      //   if (store.state.taskListGroup.find(obj => obj.id === id)) store.commit('updateTaskListTitle', taskList);
+      //   if (store.state.taskListGroup.find(obj => obj.id === id)) store.commit('updateTaskList', taskList);
       //   else store.commit('addTaskList', taskList);
       // });
       // else store.commit('retrieveTaskListGroup');
